@@ -1,5 +1,5 @@
 import { searchMovies } from "$lib/api/tmdb";
-import { error, json } from "@sveltejs/kit";
+import { json } from "@sveltejs/kit";
 
 export async function GET({ url }) {
     const query = url.searchParams.get('query');

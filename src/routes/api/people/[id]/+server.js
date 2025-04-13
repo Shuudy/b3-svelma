@@ -1,4 +1,5 @@
 import { getPersonDetails } from "$lib/api/tmdb";
+import { json } from "@sveltejs/kit";
 
 export async function GET({ params }) {
     const { id } = params;
