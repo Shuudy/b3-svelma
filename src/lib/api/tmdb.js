@@ -1,11 +1,20 @@
+// Service d'API pour TMDB
+
 const TMDB_API_URL = 'https://api.themoviedb.org/3';
-const API_KEY = import.meta.env.TMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 // Langue par défaut pour les requêtes
 const DEFAULT_LANGUAGE = 'fr-FR';
 
 
 // Fonction pour faire des requetes à l'api TMDB
 async function fetchFromTMDB(endpoint, params = {}) {
+    // vérifier si la clé est définie
+    if (!API_KEY) {
+        console.error('La clé TMDB n\'est pas définie');
+        throw new Error('Clé API TMDB manquante');
+    }
+
+
     const url = new URL(`${TMDB_API_URL}${endpoint}`);
 
     // Ajout des Paramètres par defaut
@@ -17,8 +26,18 @@ async function fetchFromTMDB(endpoint, params = {}) {
         url.searchParams.append(key, value);
     }
 
+    //console.log('URL de requête TMDB:', url.toString());
+
     try {
-        const response = await response.json();
+        //Déclarer la variable response avant de l'utiliser
+        const response = await fetch(url);
+
+        if(!response.ok) {
+            throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error('Error lors de la requête TMDB: ', error);
         throw error;

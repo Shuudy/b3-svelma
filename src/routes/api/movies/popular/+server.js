@@ -9,6 +9,10 @@ export async function GET({ url }) {
         return json(data);
     } catch (error) {
         console.error('Erreur lors de la récupération des films populaires:', error);
-        return json({ error: 'Erreur serveur' }, { status: 500 });
+        return json({ 
+            error: 'Erreur serveur',
+            message: error.message,
+            stack: error.stack
+        }, { status: 500 });
     }
 }
