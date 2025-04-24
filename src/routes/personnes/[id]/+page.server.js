@@ -8,6 +8,7 @@ export async function load({ params }) {
         const person = await getPersonDetails(id);
         return { person };
     } catch (err) {
+        console.error(`Erreur lors de la récupération des détails de la personne ${id}:`, err)
         throw error(404, { message: 'Personne non trouvée' });
     }
 }
