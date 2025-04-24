@@ -61,4 +61,8 @@
 
 		margin-top: 1rem;
 	}
+
+    .error__button:hover {
+        background-color: rgba(255, 255, 255, .85);
+    }
 </style>
