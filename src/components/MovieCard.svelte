@@ -6,7 +6,7 @@
 
 <a class="movie-card" href="/films/{id}">
     <div class="movie-card__image">
-        <img src="https://image.tmdb.org/t/p/original/{poster_path}" alt="" />
+        <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt={title} />
     </div>
     <div class="movie-card__info">
         <div class="movie-card__title">{title}</div>

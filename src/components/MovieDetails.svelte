@@ -21,7 +21,7 @@
 
 <div class="movie-details">
     <div class="movie-details__image">
-        <img src="https://image.tmdb.org/t/p/original/{poster_path}" alt="" />
+        <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt={original_title} />
     </div>
     <div class="movie-details__infos">
 

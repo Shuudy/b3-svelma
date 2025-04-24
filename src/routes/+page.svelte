@@ -3,6 +3,7 @@
     import Filter from "../components/Filter.svelte";
     import MovieCard from "../components/MovieCard.svelte";
     import Pagination from "../components/Pagination.svelte";
+	let movies = [];
 </script>
 
 <div class="container">
@@ -11,14 +12,21 @@
 			<img src="/svelma.svg" alt="Svelma Logo" />
 		</div>
 		<div class="header__actions">
-			<SearchBar />
+			<SearchBar on:search={(e) => (movies = e.detail.results)}/>
 			<Filter />
 		</div>
 	</div>
 	<div class="movie-list">
-		{#each Array(10) as _, index}
-			<MovieCard key={index} id="2" title="Movie title" year="2024" vote_average="5,4" poster_path="/ceG9VzoRAVGwivFU403Wc3AHRys.jpg"  />
-		{/each}
+		{#if movies.length > 0}
+			{#each movies as movie}
+				<MovieCard key={movie.id} id={movie.id} title={movie.title} year={movie.release_date.split("-")[0]} vote_average={movie.vote_average} poster_path={movie.poster_path}  />
+			{/each}
+		{:else}
+		<!-- a completer avec page d'érreur -->
+			<p>Aucun film à afficher</p> 
+		{/if}
 	</div>
 	<Pagination />
 </div>
+
+
