@@ -38,7 +38,7 @@
             <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.5 0L14.0691 5.82956L21 7.25735L16.275 12.288L16.9894 19L10.5 16.2796L4.01064 19L4.725 12.288L0 7.25735L6.93085 5.82956L10.5 0Z" fill="#FFCB45"/>
             </svg>
-            <span class="movie-details__infos-rating-value">{vote_average}</span>
+            <span class="movie-details__infos-rating-value">{formattedVoteAverage}</span>
             <span class="movie-details__infos-rating-number">({vote_count} votes)</span>
         </div>
 
