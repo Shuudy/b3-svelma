@@ -1,5 +1,6 @@
 <script>
-	import MovieCard from '../../../components/MovieCard.svelte';
+	import LogoHeader from '../../../components/LogoHeader.svelte';
+    import MovieCard from '../../../components/MovieCard.svelte';
 
     const actor = {
         name: "Naomie Harris",
@@ -20,6 +21,7 @@
     let formattedBirthday = formatDate(actor.birthday);
 </script>
 
+<LogoHeader />
 <div class="actor-details__container">
 	<div class="actor-details">
 		<div class="actor-details__left">
