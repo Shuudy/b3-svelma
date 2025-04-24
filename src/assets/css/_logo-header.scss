@@ -1,0 +1,12 @@
+@use 'variables';
+
+.logo-header {
+
+    &__container {
+        max-width: variables.$container-width;
+        margin: 0 auto;
+        padding: 0 1rem;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
