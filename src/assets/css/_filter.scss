@@ -1,0 +1,22 @@
+@use 'colors';
+
+.filter {
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: colors.$color-background;
+    padding: 0 16px 0 16px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: colors.$color-background-hover;
+    }
+
+    @media screen and (max-width: 406px) {
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+}

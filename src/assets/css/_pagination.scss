@@ -1,0 +1,31 @@
+@use 'colors';
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-top: 32px;
+}
+
+.page {
+    &-number {
+        background-color: colors.$color-background;
+        padding: 11px 12px 10px 12px;
+        border-radius: 6px;
+
+        &.page-dots {
+            background-color: transparent;
+        }
+
+        &:not(&.page-dots):hover {
+            background-color: colors.$color-background-hover;
+        }
+    }
+
+    &-arrow {
+        padding: 8px 11px 8px 10px;
+        background-color: colors.$color-background;
+        border-radius: 6px;
+    }
+}

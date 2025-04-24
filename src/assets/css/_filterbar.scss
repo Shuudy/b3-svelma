@@ -1,0 +1,74 @@
+@use 'colors';
+
+.filterbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 11;
+    background-color: colors.$color-background;
+
+    @media screen and (max-width: 500px) {
+        width: 250px;
+    }
+
+    &__content {
+        padding: 50px 24px;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 70px;
+
+        &-close {
+            cursor: pointer;
+        }
+    }
+
+    &__dropdown {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #ffffff56;
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;   
+            
+            cursor: pointer;
+        }
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            
+            margin-top: 1rem;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__button {
+        width: 100%;
+        padding: 12px 0;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+}
