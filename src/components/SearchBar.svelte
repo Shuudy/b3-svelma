@@ -1,5 +1,19 @@
+<script>
+	import { searchMovies } from "$lib/api/tmdb";
+
+    // Effectuer la recherche
+    async function handleSearch() {
+        if (query.trim()) {
+            goto(`/recherche?q=${encodeURIComponent(query)}`);
+        }
+    }
+
+
+
+</script>
+
 <div class="searchbar">
-    <input type="text" placeholder="Rechercher un film ..." name="" id="" />
+    <input type="text" placeholder="Rechercher un film ..." name="" id=""/>
         
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
