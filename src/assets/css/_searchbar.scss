@@ -1,0 +1,18 @@
+@use 'colors';
+
+.searchbar {
+    input {
+        background-color: colors.$color-background;
+        padding: 13px 16px;
+
+        width: 450px;
+
+        @media screen and (max-width: 768px) {
+            width: 350px;
+        }
+        
+        @media screen and (max-width: 568px) {
+            width: 250px;
+        }
+    }
+}

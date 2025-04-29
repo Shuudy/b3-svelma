@@ -1,0 +1,11 @@
+:root {
+    --banner-image: url('https://sil-bliblablo.ch/media/ul/vod/posters/10045166.jpg');
+}
+
+.banner {
+    background:
+    linear-gradient(to top, #000, transparent),
+        var(--banner-image) no-repeat center center/cover;
+
+    height: 323px;
+}

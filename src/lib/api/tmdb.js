@@ -26,17 +26,19 @@ async function fetchFromTMDB(endpoint, params = {}) {
         url.searchParams.append(key, value);
     }
 
-    //console.log('URL de requête TMDB:', url.toString());
+    console.log('URL de requête TMDB:', url.toString());
 
     try {
         //Déclarer la variable response avant de l'utiliser
         const response = await fetch(url);
 
         if(!response.ok) {
+            console.error(`Erreur API: ${response.status} ${response.statusText}`);
             throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
+        //console.log('Réponse API TMDB:', data);
         return data;
     } catch (error) {
         console.error('Error lors de la requête TMDB: ', error);
@@ -51,7 +53,7 @@ export async function searchMovies(query, page = 1) {
 
 // Obtenir les details d'un film
 export async function getMovieDetails(movieId) {
-    return fetchFromTMDB(`/movie/${movieId}`, { append_to_response: 'videos,credits,reviews' });
+    return fetchFromTMDB(`/movie/${movieId}`, { append_to_response: "credits" });
 }
 
 //Obtenir les films populaires

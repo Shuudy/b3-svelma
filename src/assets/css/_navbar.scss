@@ -1,0 +1,29 @@
+
+@use 'variables';
+.navbar {
+    height: variables.$navbar-height;
+
+    background-color: #000;
+    border-bottom: 1px solid rgba(#CBD5E1, 0.102);
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        max-width: variables.$container-width;
+        margin: 0 auto;
+
+        height: inherit;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        & > div {
+            cursor: pointer;
+        }
+    }
+}
