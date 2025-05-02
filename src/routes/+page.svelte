@@ -6,7 +6,8 @@
 	import FilterBar from "../components/FilterBar.svelte";
 	import Mask from "../components/Mask.svelte";
 
-	let movies = $state([]);
+	const { data } = $props();
+	let movies = $state(data.popularMovies);
 
 	let showFilters = $state(false);
 </script>
