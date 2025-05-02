@@ -3,7 +3,12 @@
     import Filter from "../components/Filter.svelte";
     import MovieCard from "../components/MovieCard.svelte";
     import Pagination from "../components/Pagination.svelte";
+	import FilterBar from "../components/FilterBar.svelte";
+	import Mask from "../components/Mask.svelte";
+
 	let movies = [];
+
+	let showFilters = $state(false);
 </script>
 
 <div class="container">
@@ -13,7 +18,7 @@
 		</div>
 		<div class="header__actions">
 			<SearchBar on:search={(e) => (movies = e.detail.results)}/>
-			<Filter />
+			<Filter onToggleFilters={() => showFilters = true} />
 		</div>
 	</div>
 	<div class="movie-list">
@@ -29,4 +34,7 @@
 	<Pagination />
 </div>
 
-
+{#if showFilters}
+    <Mask onClick={() => (showFilters = false)} />
+    <FilterBar onClose={() => showFilters = false} />
+{/if}

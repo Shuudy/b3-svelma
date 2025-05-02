@@ -2,13 +2,15 @@
 	const genres = ['Action', 'Aventure', 'Comédie', 'Drame', 'Horreur', 'Science-fiction'];
 
 	const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+
+	export let onClose;
 </script>
 
 <div class="filterbar">
 	<div class="filterbar__content">
 		<div class="filterbar__header">
 			<div class="filterbar__header-title">Filtres</div>
-			<div class="filterbar__header-close">
+			<div class="filterbar__header-close" on:click={onClose}>
 				<svg
 					width="24"
 					height="24"
