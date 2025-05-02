@@ -6,7 +6,7 @@
 	import FilterBar from "../components/FilterBar.svelte";
 	import Mask from "../components/Mask.svelte";
 
-	let movies = [];
+	let movies = $state([]);
 
 	let showFilters = $state(false);
 </script>
