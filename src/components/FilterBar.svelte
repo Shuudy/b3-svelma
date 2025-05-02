@@ -3,7 +3,7 @@
 
 	const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
 
-	export let onClose;
+	const { onClose } = $props();
 </script>
 
 <div class="filterbar">
