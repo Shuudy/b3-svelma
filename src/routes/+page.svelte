@@ -10,6 +10,9 @@
 	let movies = $state(data.popularMovies);
 
 	let showFilters = $state(false);
+	$effect(() => {
+        document.body.style.overflow = showFilters ? 'hidden' : '';
+    });
 </script>
 
 <div class="container">
