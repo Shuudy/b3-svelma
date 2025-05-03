@@ -17,6 +17,9 @@
     let formattedBirthday = formatDate(person.birthday);
 </script>
 
+<svelte:head>
+    <title>{person ? `${person.name} - Svelma` : "Personne non trouvée - Svelma"}</title>
+</svelte:head>
 
 <LogoHeader />
 <div class="actor-details__container">
