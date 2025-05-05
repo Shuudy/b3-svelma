@@ -1,14 +1,55 @@
 <script>
-	const genres = ['Action', 'Aventure', 'Comédie', 'Drame', 'Horreur', 'Science-fiction'];
-
 	const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+
+	let {
+		genres,
+		selectedGenres,
+		selectedYears,
+		onClose,
+		onUpdateGenres,
+		onUpdateYears,
+		onApplyFilters
+	} = $props();
+
+	function isGenreSelected(genreId) {
+		return selectedGenres.includes(genreId);
+	}
+
+	function isYearSelected(year) {
+		return selectedYears.includes(year);
+	}
+
+	function toggleGenre(genreId) {
+		if (isGenreSelected(genreId)) {
+			selectedGenres = selectedGenres.filter((id) => id !== genreId);
+		} else {
+			selectedGenres = [...selectedGenres, genreId];
+		}
+
+		onUpdateGenres(selectedGenres);
+	}
+
+	function toggleYear(year) {
+		if (isYearSelected(year)) {
+			selectedYears = selectedYears.filter((y) => y !== year);
+		} else {
+			selectedYears = [...selectedYears, year];
+		}
+
+		onUpdateYears(selectedYears);
+	}
+
+	function applyFilters() {
+		onApplyFilters();
+		onClose();
+	}
 </script>
 
 <div class="filterbar">
 	<div class="filterbar__content">
 		<div class="filterbar__header">
 			<div class="filterbar__header-title">Filtres</div>
-			<div class="filterbar__header-close">
+			<div class="filterbar__header-close" on:click={onClose}>
 				<svg
 					width="24"
 					height="24"
@@ -44,8 +85,13 @@
 			<div class="filterbar__dropdown-content">
 				{#each genres as genre}
 					<label class="filterbar__checkbox">
-						<input type="checkbox" value={genre} />
-						<span>{genre}</span>
+						<input
+							type="checkbox"
+							value={genre.id}
+							checked={isGenreSelected(genre.id)}
+							on:change={() => toggleGenre(genre.id)}
+						/>
+						<span>{genre.name}</span>
 					</label>
 				{/each}
 			</div>
@@ -72,13 +118,18 @@
 			<div class="filterbar__dropdown-content">
 				{#each years as year}
 					<label class="filterbar__checkbox">
-						<input type="checkbox" value={year} />
+						<input
+							type="checkbox"
+							value={year}
+							checked={isYearSelected(year)}
+							on:change={() => toggleYear(year)}
+						/>
 						<span>{year}</span>
 					</label>
 				{/each}
 			</div>
 		</div>
 
-		<div class="filterbar__button">Appliquer les filtres</div>
+		<div class="filterbar__button" on:click={applyFilters}>Appliquer les filtres</div>
 	</div>
 </div>
