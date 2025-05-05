@@ -1,5 +1,5 @@
 <script>
-	export let onToggleFilters;
+    const { onToggleFilters } = $props();
 </script>
 
 <div class="filter" on:click={onToggleFilters}>
