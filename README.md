@@ -1,38 +1,74 @@
-# sv
+<div id="toc">
+    <ul align="center" style="list-style: none">
+        <summary>
+        <h1>Svelma</h1>
+        </summary>
+    </ul>
+</div>
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+<div align="center">
+  <p>
+    <img src="https://img.shields.io/netlify/136cd7e3-2267-42ea-91c9-8c564580c8d1?label=Netlify%20Deploy&logo=netlify&color=00C7B7" alt="Netlify Deploy">
+    <img src="https://img.shields.io/badge/SvelteKit-v2.20.5-ff3e00" alt="SvelteKit">
+    <img src="https://img.shields.io/badge/Svelte-v5.26.2-ff3e00" alt="Svelte">
+  </p>
+</div>
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+**Svelma** is a movie app built with SvelteKit and powered by the TMDb (The Movie Database) API. It provides a dynamic and interactive interface to explore movies, actors, and more.
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Features
 
-# create a new project in my-app
-npx sv create my-app
-```
+- Browse popular movies.
+- View detailed information about movies, including cast.
+- Search for movies using the TMDb API.
+- Responsive design for a seamless experience on all devices.
 
-## Developing
+## Getting Started
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. **Clone the repository**
 
-```bash
-npm run dev
+   ```bash
+   git clone https://github.com/Shuudy/b3-svelma.git
+   cd b3-svelma
+   ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+2. **Copy the `.env.example` file and configure the environment**
 
-## Building
+   ```bash
+   cp .env.example .env
+   ```
 
-To create a production version of your app:
+   Open the `.env` file and insert your TMDB API key:
 
-```bash
-npm run build
-```
+   ```
+   VITE_TMDB_API_KEY=your_tmdb_api_key
+   ```
 
-You can preview the production build with `npm run preview`.
+3. **Install dependencies**
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production**
+
+   ```bash
+   npm run build
+   ```
+
+6. **Preview the production build**
+   ```bash
+   npm run preview
+   ```
+
+---
+
+> This project is powered by [SvelteKit](https://svelte.dev/docs/kit/introduction) and uses the [TMDb API](https://developer.themoviedb.org/docs/getting-started) for data.
