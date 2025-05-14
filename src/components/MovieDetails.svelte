@@ -18,7 +18,7 @@
 
     let formattedReleaseDate = formatDate(release_date);
 
-    const defaultMovieCard = '/defaultMovie.jpg';
+    const defaultMovieCard = '/defaultMovie.png';
 </script>
 
 <div class="movie-details">

@@ -10,7 +10,12 @@
 </script>
 
 {#if movie}
-    <div class="banner" style={`--banner-image: url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`}></div>
+    <div
+        class="banner"
+        style={`--banner-image: url('${movie.poster_path
+        ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+        : '/defaultMovie.png'}')`}
+    ></div>
 
     <div class="movie-details__container">
         <MovieDetails 

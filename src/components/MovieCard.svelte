@@ -3,7 +3,7 @@
 
     let formattedVoteAverage = vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     
-    const defaultMovieCard = '/defaultMovie.jpg';
+    const defaultMovieCard = '/defaultMovie.png';
 </script>
 
 <a class="movie-card" href="/films/{id}">
