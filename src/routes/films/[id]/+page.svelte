@@ -9,6 +9,10 @@
     console.log("Actors:", actors);
 </script>
 
+<svelte:head>
+    <title>{movie ? `${movie.original_title} - Svelma` : "Film non trouvé - Svelma"}</title>
+</svelte:head>
+
 {#if movie}
     <div class="banner" style={`--banner-image: url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`}></div>
 
