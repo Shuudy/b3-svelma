@@ -9,7 +9,7 @@
 <div align="center">
   <p>
     <img src="https://img.shields.io/netlify/136cd7e3-2267-42ea-91c9-8c564580c8d1?label=Netlify%20Deploy&logo=netlify&color=00C7B7" alt="Netlify Deploy">
-    <img src="https://img.shields.io/badge/SvelteKit-v2.20.5-ff3e00" alt="SvelteKit">
+    <img src="https://img.shields.io/badge/SvelteKit-v2.21.1-ff3e00" alt="SvelteKit">
     <img src="https://img.shields.io/badge/Svelte-v5.26.2-ff3e00" alt="Svelte">
   </p>
 </div>
