@@ -45,11 +45,11 @@
 	}
 </script>
 
-<div class="filterbar">
+<aside class="filterbar">
 	<div class="filterbar__content">
-		<div class="filterbar__header">
-			<div class="filterbar__header-title">Filtres</div>
-			<div class="filterbar__header-close" on:click={onClose}>
+		<header class="filterbar__header">
+			<h2 class="filterbar__header-title">Filtres</h2>
+			<button type="button" class="filterbar__header-close" onclick={onClose} aria-label="Fermer le panneau des filtres">
 				<svg
 					width="24"
 					height="24"
@@ -61,10 +61,10 @@
 						d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
 					/>
 				</svg>
-			</div>
-		</div>
-		<div class="filterbar__dropdown">
-			<div class="filterbar__dropdown-header">
+			</button>
+		</header>
+		<section class="filterbar__dropdown" aria-labelledby="genres-label">
+			<div class="filterbar__dropdown-header" id="genres-label">
 				<span>Genres</span>
 				<svg
 					width="24"
@@ -72,6 +72,8 @@
 					viewBox="0 0 24 24"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
+					aria-hidden="true"
+					focusable="false"
 				>
 					<path
 						d="M6 9L12 15L18 9"
@@ -89,15 +91,16 @@
 							type="checkbox"
 							value={genre.id}
 							checked={isGenreSelected(genre.id)}
-							on:change={() => toggleGenre(genre.id)}
+							onchange={() => toggleGenre(genre.id)}
+							aria-checked={isGenreSelected(genre.id)}
 						/>
 						<span>{genre.name}</span>
 					</label>
 				{/each}
 			</div>
-		</div>
-		<div class="filterbar__dropdown">
-			<div class="filterbar__dropdown-header">
+		</section>
+		<section class="filterbar__dropdown" aria-labelledby="years-label">
+			<div class="filterbar__dropdown-header" id="years-label">
 				<span>Années</span>
 				<svg
 					width="24"
@@ -105,6 +108,8 @@
 					viewBox="0 0 24 24"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
+					aria-hidden="true"
+					focusable="false"
 				>
 					<path
 						d="M6 9L12 15L18 9"
@@ -122,14 +127,15 @@
 							type="checkbox"
 							value={year}
 							checked={isYearSelected(year)}
-							on:change={() => toggleYear(year)}
+							onchange={() => toggleYear(year)}
+							aria-checked={isYearSelected(year)}
 						/>
 						<span>{year}</span>
 					</label>
 				{/each}
 			</div>
-		</div>
+		</section>
 
-		<div class="filterbar__button" on:click={applyFilters}>Appliquer les filtres</div>
+		<button class="filterbar__button" type="button" onclick={applyFilters}>Appliquer les filtres</button>
 	</div>
-</div>
+</aside>

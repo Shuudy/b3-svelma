@@ -12,11 +12,12 @@
     }
 </script>
 
-<div class="pagination">
+<nav class="pagination" aria-label="Navigation de pagination">
     <button
         class="page-arrow"
         disabled={currentPage === 1}
         on:click={() => goToPage(currentPage - 1)}
+        aria-label="Page précédente"
     >
         &lt;
     </button>
@@ -27,13 +28,19 @@
         class="page-arrow"
         disabled={currentPage === totalPages}
         on:click={() => goToPage(currentPage + 1)}
+        aria-label="Page suivante"
     >
         &gt;
     </button>
-</div>
+</nav>
 
 <style>
     .pagination span {
         margin: 0 1rem;
+    }
+
+    button:focus-visible {
+        outline: 1px solid #fff;
+        outline-offset: 1px;
     }
 </style>
