@@ -1,8 +1,9 @@
 <script>
 	import LogoHeader from '../../../components/LogoHeader.svelte';
     import MovieCard from '../../../components/MovieCard.svelte';
+	import Pagination from '../../../components/Pagination.svelte';
 
-	export let data;
+	const { data } = $props();
 	const { person } = data;
 	console.log("Person : ", person );
 
@@ -15,6 +16,25 @@
     }
 
     let formattedBirthday = formatDate(person.birthday);
+
+	// Pagination locale pour la filmographie
+	const MOVIES_PER_ROW = 5;
+	const ROWS_PER_PAGE = 2;
+	const MOVIES_PER_PAGE = MOVIES_PER_ROW * ROWS_PER_PAGE;
+	let currentMoviesPage = $state(1);
+
+	// Calcul de la pagination
+	let totalMoviesPages = $derived(Math.ceil(person.movie_credits.cast.length / MOVIES_PER_PAGE));
+	let paginatedMovies = $derived(
+		person.movie_credits.cast.slice(
+			(currentMoviesPage - 1) * MOVIES_PER_PAGE,
+			currentMoviesPage * MOVIES_PER_PAGE
+		)
+	);
+
+	function handleMoviesPageChange(page) {
+		currentMoviesPage = page;
+	}
 </script>
 
 
@@ -70,7 +90,7 @@
 	<div class="actor-details__movies">
 		<div class="actor-details__movies-title">Filmographie</div>
 		<div class="actor-details__movies-list">
-			{#each person.movie_credits.cast as movie}
+			{#each paginatedMovies as movie}
 				<MovieCard
 					key={movie.id}
 					id={movie.id}
@@ -81,6 +101,13 @@
 				/>
 			{/each}
 		</div>
+		{#if totalMoviesPages > 1}
+			<Pagination
+				currentPage={currentMoviesPage}
+				totalPages={totalMoviesPages}
+				on:pageChange={e => handleMoviesPageChange(e.detail)}
+			/>
+		{/if}
 	</div>
 </div>
 
