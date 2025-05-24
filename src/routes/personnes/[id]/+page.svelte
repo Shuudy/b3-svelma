@@ -65,7 +65,7 @@
 
 					<div class="actor-details__personalinfo-item">
 						<div class="actor-details__personalinfo-item-title">Genre</div>
-						<div class="actor-details__personalinfo-item-value">{person.gender === 1 ? 'Femme' : 'Homme'}</div>
+						<div class="actor-details__personalinfo-item-value">{person.gender === 1 ? 'Femme' : person.gender === 2 ? 'Homme' : 'Genre inconnu'}</div>
 					</div>
 
 					<div class="actor-details__personalinfo-item">
