@@ -29,6 +29,10 @@
     console.log("Actors:", actors);
 </script>
 
+<svelte:head>
+    <title>{movie ? `${movie.original_title} - Svelma` : "Film non trouvé - Svelma"}</title>
+</svelte:head>
+
 {#if movie}
     <div
         class="banner"

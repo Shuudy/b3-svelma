@@ -9,6 +9,8 @@
     z-index: 11;
     background-color: colors.$color-background;
 
+    overflow-y: auto;
+
     @media screen and (max-width: 500px) {
         width: 250px;
     }
