@@ -20,7 +20,7 @@
     >
         &lt;
     </button>
-    <span style="margin: 0 1rem;">
+    <span>
         Page {currentPage} sur {totalPages}
     </span>
     <button
@@ -31,3 +31,9 @@
         &gt;
     </button>
 </div>
+
+<style>
+    .pagination span {
+        margin: 0 1rem;
+    }
+</style>
