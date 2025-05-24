@@ -34,27 +34,31 @@
 </svelte:head>
 
 {#if movie}
-    <div
+    <header
         class="banner"
+        role="img"
+        aria-label={`Bannière avec l'affiche du film ${movie.original_title}`}
         style={`--banner-image: url('${movie.poster_path
         ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
         : '/defaultMovie.png'}')`}
-    ></div>
+    ></header>
 
-    <div class="movie-details__container">
-        <MovieDetails 
-            original_title={movie.original_title}
-            genres={movie.genres}
-            vote_average={movie.vote_average}
-            vote_count={movie.vote_count}
-            poster_path={movie.poster_path}
-            release_date={movie.release_date}
-            runtime={movie.runtime}
-            overview={movie.overview}
-        />
+    <main class="movie-details__container" aria-label={`Détails du film ${movie.original_title}`}>
+        <article>
+            <MovieDetails 
+                original_title={movie.original_title}
+                genres={movie.genres}
+                vote_average={movie.vote_average}
+                vote_count={movie.vote_count}
+                poster_path={movie.poster_path}
+                release_date={movie.release_date}
+                runtime={movie.runtime}
+                overview={movie.overview}
+            />
+        </article>
 
-        <div class="actors">
-            <div class="actors-title">Casting</div>
+        <section class="actors" aria-labelledby="casting-title">
+            <h2 id="casting-title" class="actors-title">Casting</h2>
             <div class="actors-list">
                 {#each paginatedActors as actor}
                     <ActorCard
@@ -72,10 +76,12 @@
                     on:pageChange={e => handleActorsPageChange(e.detail)}
                 />
             {/if}
-        </div>
-    </div>
+        </section>
+    </main>
 {:else}
-    <!-- // retourner page d'erreur -->
-    <p>Film non trouvé ou erreur lors du chargement des données</p>
+    <main>
+        <!-- // retourner page d'erreur -->
+        <p role="alert">Film non trouvé ou erreur lors du chargement des données</p>
+    </main>
 {/if}
 

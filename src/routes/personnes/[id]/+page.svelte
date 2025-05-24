@@ -43,8 +43,8 @@
 </svelte:head>
 
 <LogoHeader />
-<div class="actor-details__container">
-	<div class="actor-details">
+<main class="actor-details__container" aria-label="Détails de la personne">
+	<section class="actor-details" aria-labelledby="actor-details-title">
 		<div class="actor-details__left">
 			<div class="actor-details__image">
 				<img
@@ -53,8 +53,8 @@
 				/>
 			</div>
 
-			<div class="actor-details__personalinfo">
-				<div class="actor-details__personalinfo-title">Informations personnelles</div>
+			<aside class="actor-details__personalinfo" aria-labelledby="personal-info-title">
+				<h2 id="personal-info-title" class="actor-details__personalinfo-title">Informations personnelles</h2>
 				<div class="actor-details__personalinfo-items">
 					<div class="actor-details__personalinfo-item">
 						<div class="actor-details__personalinfo-item-title">Lieu de naissance</div>
@@ -73,15 +73,15 @@
 						<div class="actor-details__personalinfo-item-value">{person.known_for_department ?? "??"}</div>
 					</div>
 				</div>
-			</div>
+			</aside>
 		</div>
 		<div class="actor-details__right">
-			<div class="actor-details__infos">
-				<div class="actor-details__infos-name">{person.name}</div>
+			<header class="actor-details__infos" aria-label="Informations principales de la personne">
+				<h1 id="actor-details-title" class="actor-details__infos-name">{person.name}</h1>
 				<div class="actor-details__infos-birthday">Né(e) le {formattedBirthday}</div>
-			</div>
-			<div class="actor-details__biography">
-				<div class="actor-details__biography-title">Biographie</div>
+			</header>
+			<section class="actor-details__biography" aria-labelledby="biography-title">
+				<h2 id="biography-title" class="actor-details__biography-title">Biographie</h2>
 				<div class="actor-details__biography-text">
                     {#each biographyParagraphs as paragraph, index}
                         <p style="margin-top: {index === 0 ? '0' : ''}">{paragraph}</p>
@@ -89,13 +89,13 @@
 						<p style="margin-top: 0">Aucune biographie disponible.</p>
                     {/each}
 				</div>
-			</div>
+			</section>
 		</div>
-	</div>
+	</section>
 
-	<div class="actor-details__movies">
-		<div class="actor-details__movies-title">Filmographie</div>
-		<div class="actor-details__movies-list">
+	<section class="actor-details__movies" aria-labelledby="filmography-title">
+		<h2 id="filmography-title" class="actor-details__movies-title">Filmographie</h2>
+		<div class="actor-details__movies-list" role="list">
 			{#each paginatedMovies as movie}
 				<MovieCard
 					key={movie.id}
@@ -114,7 +114,5 @@
 				on:pageChange={e => handleMoviesPageChange(e.detail)}
 			/>
 		{/if}
-	</div>
-</div>
-
-
+	</section>
+</main>

@@ -64,7 +64,7 @@
 </svelte:head>
 
 <div class="container">
-	<div class="header">
+	<header class="header">
 		<div class="header__logo">
 			<img src="/svelma.svg" alt="Svelma Logo" />
 		</div>
@@ -72,8 +72,8 @@
 			<SearchBar on:search={(e) => (movies = e.detail.results)} />
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
-	</div>
-	<div class="movie-list">
+	</header>
+	<main class="movie-list" aria-label="Liste des films populaires">
 		{#if paginatedMovies.length > 0}
 			{#each paginatedMovies as movie}
 				<MovieCard
@@ -88,7 +88,7 @@
 		{:else}
 			<p>Aucun film à afficher</p>
 		{/if}
-	</div>
+	</main>
 	<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
 </div>
 
