@@ -13,12 +13,20 @@
 	let showFilters = $state(false);
 	let selectedGenres = $state([]);
 	let selectedYears = $state([]);
+
+	// Pagination locale
+	const MOVIES_PER_ROW = 5;
+	const ROWS_PER_PAGE = 2;
+	const MOVIES_PER_PAGE = MOVIES_PER_ROW * ROWS_PER_PAGE;
+	let currentPage = $state(1);
+
 	$effect(() => {
 		document.body.style.overflow = showFilters ? 'hidden' : '';
 	});
 
 	$effect(() => {
 		filteredMovies = movies;
+		currentPage = 1;
 	});
 
 	function applyFilters() {
@@ -32,7 +40,23 @@
 
 			return matchesYear && matchesGenres;
 		});
+
+		currentPage = 1;
 	}
+
+	// Calcul de la pagination
+	let totalPages = $derived(Math.ceil(filteredMovies.length / MOVIES_PER_PAGE));
+	let paginatedMovies = $derived(
+		filteredMovies.slice(
+			(currentPage - 1) * MOVIES_PER_PAGE,
+			currentPage * MOVIES_PER_PAGE
+		)
+	);
+
+	function handlePageChange(page) {
+		currentPage = page;
+	}
+
 </script>
 
 <div class="container">
@@ -46,8 +70,8 @@
 		</div>
 	</div>
 	<div class="movie-list">
-		{#if filteredMovies.length > 0}
-			{#each filteredMovies as movie}
+		{#if paginatedMovies.length > 0}
+			{#each paginatedMovies as movie}
 				<MovieCard
 					key={movie.id}
 					id={movie.id}
@@ -58,11 +82,10 @@
 				/>
 			{/each}
 		{:else}
-			<!-- a completer avec page d'érreur -->
 			<p>Aucun film à afficher</p>
 		{/if}
 	</div>
-	<Pagination />
+	<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
 </div>
 
 {#if showFilters}

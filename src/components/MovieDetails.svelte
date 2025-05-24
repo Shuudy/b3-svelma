@@ -13,15 +13,20 @@
 
     function formatDate(dateString) {
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return "Date inconnue";
+        }
         return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
     }
 
     let formattedReleaseDate = formatDate(release_date);
+
+    const defaultMovieCard = '/defaultMovie.png';
 </script>
 
 <div class="movie-details">
     <div class="movie-details__image">
-        <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt={original_title} />
+        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={original_title} />
     </div>
     <div class="movie-details__infos">
 

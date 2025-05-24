@@ -1,9 +1,39 @@
+<script>
+	import { createEventDispatcher } from "svelte";
+
+    export let currentPage = 1;
+    export let totalPages = 1;
+    const dispatch = createEventDispatcher();
+
+    function goToPage(page) {
+        if (page >= 1 && page <= totalPages) {
+            dispatch("pageChange", page);
+        }
+    }
+</script>
+
 <div class="pagination">
-    <a href="#" class="page-arrow">&lt;</a>
-    <a href="#" class="page-number">1</a>
-    <a href="#" class="page-number">2</a>
-    <a href="#" class="page-number">3</a>
-    <a href="#" class="page-number page-dots">...</a>
-    <a href="#" class="page-number">32</a>
-    <a href="#" class="page-arrow">&gt;</a>
+    <button
+        class="page-arrow"
+        disabled={currentPage === 1}
+        on:click={() => goToPage(currentPage - 1)}
+    >
+        &lt;
+    </button>
+    <span>
+        Page {currentPage} sur {totalPages}
+    </span>
+    <button
+        class="page-arrow"
+        disabled={currentPage === totalPages}
+        on:click={() => goToPage(currentPage + 1)}
+    >
+        &gt;
+    </button>
 </div>
+
+<style>
+    .pagination span {
+        margin: 0 1rem;
+    }
+</style>

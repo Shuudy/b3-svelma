@@ -1,9 +1,29 @@
 <script>
     import MovieDetails from "../../../components/MovieDetails.svelte";
     import ActorCard from "../../../components/ActorCard.svelte";
+	import Pagination from "../../../components/Pagination.svelte";
 
-    export let data;
+    const { data } = $props();
     const { movie, actors} = data;
+
+    // Pagination locale des acteurs
+	const ACTORS_PER_ROW = 5;
+	const ROWS_PER_PAGE = 2;
+	const ACTORS_PER_PAGE = ACTORS_PER_ROW * ROWS_PER_PAGE;
+	let currentActorsPage = $state(1);
+
+    // Calcul de la pagination
+	let totalActorsPages = $derived(Math.ceil(actors.length / ACTORS_PER_PAGE));
+	let paginatedActors = $derived(
+		actors.slice(
+			(currentActorsPage - 1) * ACTORS_PER_PAGE,
+			currentActorsPage * ACTORS_PER_PAGE
+		)
+	);
+
+    function handleActorsPageChange(page) {
+        currentActorsPage = page;
+    }
 
     console.log("Movie:", movie);
     console.log("Actors:", actors);
@@ -14,7 +34,12 @@
 </svelte:head>
 
 {#if movie}
-    <div class="banner" style={`--banner-image: url('https://image.tmdb.org/t/p/original/${movie.poster_path}')`}></div>
+    <div
+        class="banner"
+        style={`--banner-image: url('${movie.poster_path
+        ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+        : '/defaultMovie.png'}')`}
+    ></div>
 
     <div class="movie-details__container">
         <MovieDetails 
@@ -31,7 +56,7 @@
         <div class="actors">
             <div class="actors-title">Casting</div>
             <div class="actors-list">
-                {#each actors as actor, index}
+                {#each paginatedActors as actor}
                     <ActorCard
                         id={actor.id}
                         name={actor.name}
@@ -40,6 +65,13 @@
                     />
                 {/each}
             </div>
+            {#if totalActorsPages > 1}
+                <Pagination
+                    currentPage={currentActorsPage}
+                    totalPages={totalActorsPages}
+                    on:pageChange={e => handleActorsPageChange(e.detail)}
+                />
+            {/if}
         </div>
     </div>
 {:else}
