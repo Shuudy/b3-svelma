@@ -61,6 +61,7 @@
 
 <svelte:head>
     <title>Svelma</title>
+	<meta name="description" content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma." />
 </svelte:head>
 
 <div class="container">

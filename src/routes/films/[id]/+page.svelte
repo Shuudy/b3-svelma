@@ -31,6 +31,7 @@
 
 <svelte:head>
     <title>{movie ? `${movie.original_title} - Svelma` : "Film non trouvé - Svelma"}</title>
+    <meta name="description" content={`Découvrez les détails, le casting et les informations du film ${movie?.original_title ?? ''} sur Svelma.`} />
 </svelte:head>
 
 {#if movie}

@@ -40,6 +40,7 @@
 
 <svelte:head>
     <title>{person ? `${person.name} - Svelma` : "Personne non trouvée - Svelma"}</title>
+	<meta name="description" content={`Découvrez la biographie, la filmographie et les informations de ${person.name} sur Svelma.`} />
 </svelte:head>
 
 <LogoHeader />
