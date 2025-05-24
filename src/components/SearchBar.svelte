@@ -43,8 +43,6 @@
             <path d="M16.6667 9.1665C16.6667 5.02437 13.3089 1.6665 9.16675 1.6665C5.02461 1.6665 1.66675 5.02437 1.66675 9.1665C1.66675 13.3087 5.02461 16.6665 9.16675 16.6665C13.3089 16.6665 16.6667 13.3087 16.6667 9.1665Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
         </svg>
     </button>
-   
-
 </form>
 
 <style>
@@ -62,5 +60,10 @@
         top: 50%;
         right: 4px;
         transform: translateY(-50%);
+    }
+
+    button:focus-visible {
+        outline: 1px solid #fff;
+        outline-offset: 1px;
     }
 </style>

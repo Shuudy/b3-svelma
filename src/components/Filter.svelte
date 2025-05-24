@@ -8,3 +8,10 @@
     </svg>
     <span>Filtrer</span>
 </button>
+
+<style>
+    button:focus-visible {
+        outline: 1px solid #fff;
+        outline-offset: 1px;
+    }
+</style>
