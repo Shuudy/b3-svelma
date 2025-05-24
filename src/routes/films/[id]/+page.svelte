@@ -25,8 +25,6 @@
         currentActorsPage = page;
     }
 
-    console.log("Movie:", movie);
-    console.log("Actors:", actors);
 </script>
 
 <svelte:head>
