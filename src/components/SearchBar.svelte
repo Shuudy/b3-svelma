@@ -50,6 +50,11 @@
         padding-right: 30px;
     }
 
+    input:focus-visible {
+        outline: 1px solid #fff;
+        outline-offset: 1px;
+    }
+
     .searchbar {
         position: relative;
     }
