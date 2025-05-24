@@ -36,4 +36,9 @@
     .pagination span {
         margin: 0 1rem;
     }
+
+    button:focus-visible {
+        outline: 1px solid #fff;
+        outline-offset: 1px;
+    }
 </style>
