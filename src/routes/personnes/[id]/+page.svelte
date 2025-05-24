@@ -11,6 +11,7 @@
     let biographyParagraphs = person.biography ? person.biography.split('\n\n') : [];
 
     function formatDate(dateString) {
+		if (!dateString) return "Date inconnue";
         const date = new Date(dateString);
         return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
     }
@@ -58,7 +59,7 @@
 					<div class="actor-details__personalinfo-item">
 						<div class="actor-details__personalinfo-item-title">Lieu de naissance</div>
 						<div class="actor-details__personalinfo-item-value">
-							{person.place_of_birth}
+							{person.place_of_birth ?? "Lieu inconnu"}
 						</div>
 					</div>
 
@@ -69,7 +70,7 @@
 
 					<div class="actor-details__personalinfo-item">
 						<div class="actor-details__personalinfo-item-title">Célèbre pour</div>
-						<div class="actor-details__personalinfo-item-value">Acting</div>
+						<div class="actor-details__personalinfo-item-value">{person.known_for_department ?? "??"}</div>
 					</div>
 				</div>
 			</div>
@@ -84,6 +85,8 @@
 				<div class="actor-details__biography-text">
                     {#each biographyParagraphs as paragraph, index}
                         <p style="margin-top: {index === 0 ? '0' : ''}">{paragraph}</p>
+					{:else}
+						<p style="margin-top: 0">Aucune biographie disponible.</p>
                     {/each}
 				</div>
 			</div>

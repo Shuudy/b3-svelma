@@ -59,6 +59,10 @@
 
 </script>
 
+<svelte:head>
+    <title>Svelma</title>
+</svelte:head>
+
 <div class="container">
 	<div class="header">
 		<div class="header__logo">
