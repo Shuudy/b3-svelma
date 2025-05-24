@@ -89,7 +89,9 @@
 			<p>Aucun film à afficher</p>
 		{/if}
 	</div>
-	<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
+	{#if filteredMovies.length > 0}
+		<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
+	{/if}
 </div>
 
 {#if showFilters}
