@@ -2,4 +2,4 @@
 	const { onClick } = $props();
 </script>
 
-<div class="mask" on:click={onClick}></div>
+<div class="mask" aria-hidden="true" role="presentation" on:click={onClick}></div>

@@ -24,34 +24,34 @@
     const defaultMovieCard = '/defaultMovie.png';
 </script>
 
-<div class="movie-details">
+<article class="movie-details">
     <div class="movie-details__image">
-        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={original_title} />
+        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={`Affiche du film ${original_title}`} />
     </div>
-    <div class="movie-details__infos">
+    <section class="movie-details__infos" aria-labelledby="movie-title">
 
-        <div class="movie-details__infos-title">{original_title}</div>
+        <h1 id="movie-title" class="movie-details__infos-title">{original_title}</h1>
         <div class="movie-details__infos-datetime">{formattedReleaseDate} - {formattedRuntime}</div>
 
-        <div class="movie-details__infos-types">
+        <div class="movie-details__infos-types" aria-label="Genres">
             {#each genres as genre}
                 <span class="movie-details__infos-type">{genre.name}</span>
             {/each}
         </div>
 
-        <div class="movie-details__infos-rating">
-            <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="movie-details__infos-rating" aria-label={`Note moyenne : ${formattedVoteAverage} sur 10, basée sur ${vote_count} votes`}>
+            <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <path d="M10.5 0L14.0691 5.82956L21 7.25735L16.275 12.288L16.9894 19L10.5 16.2796L4.01064 19L4.725 12.288L0 7.25735L6.93085 5.82956L10.5 0Z" fill="#FFCB45"/>
             </svg>
             <span class="movie-details__infos-rating-value">{formattedVoteAverage}</span>
             <span class="movie-details__infos-rating-number">({vote_count} votes)</span>
         </div>
 
-        <div class="movie-details__infos-synopsis">
-            <div class="movie-details__infos-synopsis-title">Synopsis</div>
+        <div class="movie-details__infos-synopsis" aria-labelledby="synopsis-title">
+            <h2 id="synopsis-title" class="movie-details__infos-synopsis-title">Synopsis</h2>
             <div class="movie-details__infos-synopsis-text">
                 {overview}
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</article>
