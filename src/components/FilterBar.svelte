@@ -1,4 +1,6 @@
 <script>
+	import { onMount } from "svelte";
+
 	const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
 
 	let {
@@ -8,8 +10,11 @@
 		onClose,
 		onUpdateGenres,
 		onUpdateYears,
-		onApplyFilters
+		onApplyFilters,
+		autoFocus = false // Focus automatique
 	} = $props();
+
+	let closeButton;
 
 	function isGenreSelected(genreId) {
 		return selectedGenres.includes(genreId);
@@ -43,13 +48,19 @@
 		onApplyFilters();
 		onClose();
 	}
+
+	onMount(() => {
+		if (autoFocus && closeButton) {
+			closeButton.focus()
+		}
+	})
 </script>
 
 <aside class="filterbar">
 	<div class="filterbar__content">
 		<header class="filterbar__header">
 			<h2 class="filterbar__header-title">Filtres</h2>
-			<button type="button" class="filterbar__header-close" onclick={onClose} aria-label="Fermer le panneau des filtres">
+			<button type="button" class="filterbar__header-close" onclick={onClose} aria-label="Fermer le panneau des filtres" bind:this={closeButton}>
 				<svg
 					width="24"
 					height="24"
@@ -92,6 +103,12 @@
 							value={genre.id}
 							checked={isGenreSelected(genre.id)}
 							onchange={() => toggleGenre(genre.id)}
+							onkeydown={(e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									toggleGenre(genre.id);
+								}
+							}}
 							aria-checked={isGenreSelected(genre.id)}
 						/>
 						<span>{genre.name}</span>
@@ -128,6 +145,12 @@
 							value={year}
 							checked={isYearSelected(year)}
 							onchange={() => toggleYear(year)}
+							onkeydown={(e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									toggleYear(year);
+								}
+							}}
 							aria-checked={isYearSelected(year)}
 						/>
 						<span>{year}</span>
@@ -139,3 +162,16 @@
 		<button class="filterbar__button" type="button" onclick={applyFilters}>Appliquer les filtres</button>
 	</div>
 </aside>
+
+<style>
+	input[type="checkbox"]:focus-visible {
+		outline: 1.8px solid #fff;
+		outline-offset: 1.8px;
+	}
+
+	.filterbar__button:focus-visible,
+	.filterbar__header-close:focus-visible {
+		outline: 2px solid #fff;
+		outline-offset: 2px;
+	}
+</style>
