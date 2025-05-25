@@ -103,5 +103,6 @@
 		onUpdateYears={(updatedYears) => (selectedYears = updatedYears)}
 		onApplyFilters={applyFilters}
 		onClose={() => (showFilters = false)}
+		autoFocus={true}
 	/>
 {/if}
