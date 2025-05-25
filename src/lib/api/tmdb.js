@@ -26,8 +26,6 @@ async function fetchFromTMDB(endpoint, params = {}) {
         url.searchParams.append(key, value);
     }
 
-    console.log('URL de requête TMDB:', url.toString());
-
     try {
         //Déclarer la variable response avant de l'utiliser
         const response = await fetch(url);
@@ -38,7 +36,6 @@ async function fetchFromTMDB(endpoint, params = {}) {
         }
 
         const data = await response.json();
-        //console.log('Réponse API TMDB:', data);
         return data;
     } catch (error) {
         console.error('Error lors de la requête TMDB: ', error);

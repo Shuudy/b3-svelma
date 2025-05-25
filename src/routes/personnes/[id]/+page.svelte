@@ -5,8 +5,6 @@
 
 	const { data } = $props();
 	const { person } = data;
-	console.log("Person : ", person );
-
     
     let biographyParagraphs = person.biography ? person.biography.split('\n\n') : [];
 
