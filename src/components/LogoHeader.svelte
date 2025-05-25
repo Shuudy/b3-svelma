@@ -1,10 +1,10 @@
-<div class="logo-header">
+<header class="logo-header">
 	<div class="logo-header__container">
-		<a href="/">
-			<img src="/svelma.svg" alt="" />
+		<a href="/" aria-label="Accueil - Svelma">
+			<img src="/svelma.svg" alt="Logo Svelma" />
 		</a>
 	</div>
-</div>
+</header>
 
 <style>
 	a {
