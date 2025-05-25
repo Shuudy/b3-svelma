@@ -103,6 +103,12 @@
 							value={genre.id}
 							checked={isGenreSelected(genre.id)}
 							onchange={() => toggleGenre(genre.id)}
+							onkeydown={(e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									toggleGenre(genre.id);
+								}
+							}}
 							aria-checked={isGenreSelected(genre.id)}
 						/>
 						<span>{genre.name}</span>
@@ -139,6 +145,12 @@
 							value={year}
 							checked={isYearSelected(year)}
 							onchange={() => toggleYear(year)}
+							onkeydown={(e) => {
+								if (e.key === "Enter") {
+									e.preventDefault();
+									toggleYear(year);
+								}
+							}}
 							aria-checked={isYearSelected(year)}
 						/>
 						<span>{year}</span>
