@@ -2,6 +2,7 @@
     import MovieDetails from "../../../components/MovieDetails.svelte";
     import ActorCard from "../../../components/ActorCard.svelte";
 	import Pagination from "../../../components/Pagination.svelte";
+	import Navbar from "../../../components/Navbar.svelte";
 
     const { data } = $props();
     const { movie, actors} = data;
@@ -33,6 +34,7 @@
 </svelte:head>
 
 {#if movie}
+    <Navbar />
     <header
         class="banner"
         role="img"
