@@ -74,21 +74,23 @@
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
 	</header>
-	<main class="movie-list" aria-label="Liste des films populaires">
-		{#if paginatedMovies.length > 0}
-			{#each paginatedMovies as movie}
-				<MovieCard
-					key={movie.id}
-					id={movie.id}
-					title={movie.title}
-					year={movie.release_date.split('-')[0]}
-					vote_average={movie.vote_average}
-					poster_path={movie.poster_path}
-				/>
-			{/each}
-		{:else}
-			<p>Aucun film à afficher</p>
-		{/if}
+	<main class="movie-list-container" aria-label="Liste des films populaires">
+		<div class="movie-list">
+			{#if paginatedMovies.length > 0}
+				{#each paginatedMovies as movie}
+					<MovieCard
+						key={movie.id}
+						id={movie.id}
+						title={movie.title}
+						year={movie.release_date.split('-')[0]}
+						vote_average={movie.vote_average}
+						poster_path={movie.poster_path}
+					/>
+				{/each}
+			{:else}
+				<p>Aucun film à afficher</p>
+			{/if}
+		</div>		
 		{#if filteredMovies.length > 0}
 			<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
 		{/if}

@@ -24,6 +24,7 @@
     <input 
         type="text" 
         placeholder="Rechercher un film ..." 
+        aria-label="Champ de recherche pour les films"
         name="" 
         id="" 
         bind:value={query}
