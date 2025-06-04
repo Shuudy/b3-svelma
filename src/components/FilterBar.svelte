@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from "svelte";
 
-	const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
+	const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 6 }, (_, i) => currentYear - i);
 
 	let {
 		genres,
