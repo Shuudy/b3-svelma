@@ -52,7 +52,7 @@
     }
 
     input:focus-visible {
-        outline: 1px solid #fff;
+        outline: 1px solid var(--text);
         outline-offset: 1px;
     }
 
@@ -69,7 +69,7 @@
     }
 
     button:focus-visible {
-        outline: 1px solid #fff;
+        outline: 1px solid var(--text);
         outline-offset: 1px;
     }
 </style>
