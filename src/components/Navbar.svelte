@@ -57,7 +57,7 @@
         type="button" 
         class="navbar__theme-toggle" 
         aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
-        on:click={toggleTheme}
+        onclick={toggleTheme}
       >
         {#if isDark}
           <svg
