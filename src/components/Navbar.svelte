@@ -13,13 +13,16 @@
   }
   
   // Obtenir le thème actuel
-  $: isDark = $theme === 'dark';
+  let isDark = $derived($theme === 'dark');
+
+  let logoSrc = $derived(isDark ? '/svelma.svg' : '/svelma_light_mode.svg');
+  let logoAlt = $derived(isDark ? 'Svelma Logo Dark' : 'Svelma Logo Light');
 </script>
 
 <nav class="navbar" aria-label="Navigation principale">
   <div class="navbar__content">
     <div class="navbar__logo">
-      <img width="89" height="36" src="/svelma.svg" alt="Svelma Logo" />
+      <img width="89" height="36" src={logoSrc} alt={logoAlt} />
     </div>
 
     <div class="navbar__actions">

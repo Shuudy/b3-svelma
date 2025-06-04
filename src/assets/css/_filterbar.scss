@@ -34,7 +34,7 @@
 
     &__dropdown {
         padding-bottom: 1rem;
-        border-bottom: 1px solid #ffffff56;
+        border-bottom: 1px solid var(--border);
         &-header {
             display: flex;
             justify-content: space-between;
@@ -64,14 +64,14 @@
     &__button {
         width: 100%;
         padding: 12px 0;
-        background-color: #fff;
+        background-color: #f0f0f0;
         color: #000;
         text-align: center;
 
         cursor: pointer;
 
         &:hover {
-            background-color: #f0f0f0;
+            background-color: #dbdbdb;
         }
     }
 }

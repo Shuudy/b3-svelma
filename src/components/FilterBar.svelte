@@ -69,7 +69,7 @@
 					xmlns="http://www.w3.org/2000/svg"
 				>
 					<path
-						d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+						d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"
 					/>
 				</svg>
 			</button>
@@ -88,7 +88,7 @@
 				>
 					<path
 						d="M6 9L12 15L18 9"
-						stroke="white"
+						stroke="currentColor"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -130,7 +130,7 @@
 				>
 					<path
 						d="M6 9L12 15L18 9"
-						stroke="white"
+						stroke="currentColor"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -165,13 +165,13 @@
 
 <style>
 	input[type="checkbox"]:focus-visible {
-		outline: 1.8px solid #fff;
+		outline: 1.8px solid var(--text);
 		outline-offset: 1.8px;
 	}
 
 	.filterbar__button:focus-visible,
 	.filterbar__header-close:focus-visible {
-		outline: 2px solid #fff;
+		outline: 2px solid var(--text);
 		outline-offset: 2px;
 	}
 </style>
