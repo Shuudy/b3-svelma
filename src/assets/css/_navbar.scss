@@ -1,9 +1,15 @@
 
 @use 'variables';
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    z-index: 10;
     height: variables.$navbar-height;
 
-    background-color: #000;
+    background-color: rgba(#000, .6);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(#CBD5E1, 0.102);
 
     &__content {
@@ -14,13 +20,19 @@
         max-width: variables.$container-width;
         margin: 0 auto;
 
+        padding: 0 1rem;
+
         height: inherit;
+    }
+
+    &__spacer {
+        height: variables.$navbar-height;
     }
 
     &__actions {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
 
         & > div {
             cursor: pointer;
