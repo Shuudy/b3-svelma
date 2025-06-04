@@ -22,7 +22,9 @@
 <nav class="navbar" aria-label="Navigation principale">
   <div class="navbar__content">
     <div class="navbar__logo">
-      <img width="89" height="36" src={logoSrc} alt={logoAlt} />
+      <a href="/" aria-label="Retour à l'accueil">
+        <img width="89" height="36" src={logoSrc} alt={logoAlt} />
+      </a>
     </div>
 
     <div class="navbar__actions">
