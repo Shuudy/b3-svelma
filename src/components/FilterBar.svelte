@@ -16,6 +16,17 @@
 
 	let closeButton;
 
+	let isGenresOpen = $state(selectedGenres.length > 0);
+	let isYearsOpen = $state(selectedYears.length > 0);
+
+	function toggleDropdown(dropdown) {
+        if (dropdown === "genres") {
+            isGenresOpen = !isGenresOpen;
+        } else if (dropdown === "years") {
+            isYearsOpen = !isYearsOpen;
+        }
+    }
+
 	function isGenreSelected(genreId) {
 		return selectedGenres.includes(genreId);
 	}
@@ -75,9 +86,10 @@
 			</button>
 		</header>
 		<section class="filterbar__dropdown" aria-labelledby="genres-label">
-			<div class="filterbar__dropdown-header" id="genres-label">
+			<button class="filterbar__dropdown-header" id="genres-label" onclick={() => toggleDropdown("genres")}>
 				<span>Genres</span>
 				<svg
+					class:rotated={isGenresOpen}
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
@@ -94,32 +106,35 @@
 						stroke-linejoin="round"
 					/>
 				</svg>
-			</div>
-			<div class="filterbar__dropdown-content">
-				{#each genres as genre}
-					<label class="filterbar__checkbox">
-						<input
-							type="checkbox"
-							value={genre.id}
-							checked={isGenreSelected(genre.id)}
-							onchange={() => toggleGenre(genre.id)}
-							onkeydown={(e) => {
-								if (e.key === "Enter") {
-									e.preventDefault();
-									toggleGenre(genre.id);
-								}
-							}}
-							aria-checked={isGenreSelected(genre.id)}
-						/>
-						<span>{genre.name}</span>
-					</label>
-				{/each}
-			</div>
+			</button>
+			{#if isGenresOpen}
+				<div class="filterbar__dropdown-content">
+					{#each genres as genre}
+						<label class="filterbar__checkbox">
+							<input
+								type="checkbox"
+								value={genre.id}
+								checked={isGenreSelected(genre.id)}
+								onchange={() => toggleGenre(genre.id)}
+								onkeydown={(e) => {
+									if (e.key === "Enter") {
+										e.preventDefault();
+										toggleGenre(genre.id);
+									}
+								}}
+								aria-checked={isGenreSelected(genre.id)}
+							/>
+							<span>{genre.name}</span>
+						</label>
+					{/each}
+				</div>
+			{/if}
 		</section>
 		<section class="filterbar__dropdown" aria-labelledby="years-label">
-			<div class="filterbar__dropdown-header" id="years-label">
+			<button class="filterbar__dropdown-header" id="years-label" onclick={() => toggleDropdown("years")}>
 				<span>Années</span>
 				<svg
+					class:rotated={isYearsOpen}
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
@@ -136,27 +151,29 @@
 						stroke-linejoin="round"
 					/>
 				</svg>
-			</div>
-			<div class="filterbar__dropdown-content">
-				{#each years as year}
-					<label class="filterbar__checkbox">
-						<input
-							type="checkbox"
-							value={year}
-							checked={isYearSelected(year)}
-							onchange={() => toggleYear(year)}
-							onkeydown={(e) => {
-								if (e.key === "Enter") {
-									e.preventDefault();
-									toggleYear(year);
-								}
-							}}
-							aria-checked={isYearSelected(year)}
-						/>
-						<span>{year}</span>
-					</label>
-				{/each}
-			</div>
+			</button>
+			{#if isYearsOpen}
+				<div class="filterbar__dropdown-content">
+					{#each years as year}
+						<label class="filterbar__checkbox">
+							<input
+								type="checkbox"
+								value={year}
+								checked={isYearSelected(year)}
+								onchange={() => toggleYear(year)}
+								onkeydown={(e) => {
+									if (e.key === "Enter") {
+										e.preventDefault();
+										toggleYear(year);
+									}
+								}}
+								aria-checked={isYearSelected(year)}
+							/>
+							<span>{year}</span>
+						</label>
+					{/each}
+				</div>
+			{/if}
 		</section>
 
 		<button class="filterbar__button" type="button" onclick={applyFilters}>Appliquer les filtres</button>
@@ -173,5 +190,9 @@
 	.filterbar__header-close:focus-visible {
 		outline: 2px solid #fff;
 		outline-offset: 2px;
+	}
+
+	.filterbar__dropdown-header .rotated {
+		transform: rotate(180deg);
 	}
 </style>
