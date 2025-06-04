@@ -25,8 +25,8 @@
         type="text" 
         placeholder="Rechercher un film ..." 
         aria-label="Champ de recherche pour les films"
-        name="" 
-        id="" 
+        name="search" 
+        id="search" 
         bind:value={query}
         on:keydown={(e) => e.key === "Enter" && handleSearch()}
     />
