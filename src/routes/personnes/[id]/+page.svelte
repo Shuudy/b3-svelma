@@ -2,6 +2,7 @@
 	import LogoHeader from '../../../components/LogoHeader.svelte';
     import MovieCard from '../../../components/MovieCard.svelte';
 	import Pagination from '../../../components/Pagination.svelte';
+	import Navbar from "../../../components/Navbar.svelte";
 
 	const { data } = $props();
 	const { person } = data;
@@ -41,7 +42,8 @@
 	<meta name="description" content={`Découvrez la biographie, la filmographie et les informations de ${person.name} sur Svelma.`} />
 </svelte:head>
 
-<LogoHeader />
+
+<Navbar/>
 <main class="actor-details__container" aria-label="Détails de la personne">
 	<section class="actor-details" aria-labelledby="actor-details-title">
 		<div class="actor-details__left">

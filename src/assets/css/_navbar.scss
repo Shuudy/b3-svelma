@@ -1,5 +1,5 @@
-
 @use 'variables';
+
 .navbar {
     position: fixed;
     top: 0;
@@ -8,9 +8,12 @@
     z-index: 10;
     height: variables.$navbar-height;
 
-    background-color: rgba(#000, .6);
+    background-color: var(--navbar-bg);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(#CBD5E1, 0.102);
+    border-bottom: 1px solid var(--border);
+    
+    transition: background-color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
 
     &__content {
         display: flex;
@@ -34,8 +37,20 @@
         align-items: center;
         gap: 1rem;
 
-        & > div {
+        & > div, & > button {
             cursor: pointer;
+        }
+    }
+    
+    &__theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 50%;
+        
+        &:hover {
+            background-color: var(--background-hover);
         }
     }
 }

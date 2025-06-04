@@ -1,3 +1,2 @@
-
-$color-background: #111;
-$color-background-hover: rgba(#fff, 0.05);
+$color-background: var(--background-card);
+$color-background-hover: var(--background-hover);
