@@ -2,7 +2,7 @@
 	import { searchMovies } from "$lib/api/tmdb";
     import { createEventDispatcher } from "svelte";
 
-    let query = "";
+    let query = $state("");
     const dispatch = createEventDispatcher();
 
     // Effectuer la recherche
@@ -30,10 +30,10 @@
         name="search" 
         id="search" 
         bind:value={query}
-        on:keydown={(e) => e.key === "Enter" && handleSearch()}
+        onkeydown={(e) => e.key === "Enter" && handleSearch()}
     />
     
-    <button type="button" aria-label="Lancer la recherche" on:click={handleSearch}>
+    <button type="button" aria-label="Lancer la recherche" onclick={handleSearch}>
          <svg 
             width="20" 
             height="20" 
