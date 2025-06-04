@@ -77,7 +77,10 @@
 			<img width="225" height="146" src={logoSrc} alt={logoAlt} />
 		</div>
 		<div class="header__actions">
-			<SearchBar on:search={(e) => (movies = e.detail.results)} />
+			<SearchBar
+				on:search={(e) => (movies = e.detail.results)}
+				on:reset={() => (movies = data.popularMovies)}
+			/>
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
 	</header>

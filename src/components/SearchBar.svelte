@@ -15,6 +15,8 @@
             } catch (error) {
                 console.error("Erreur lors de la recherche :", error);
             }
+        } else {
+            dispatch("reset");
         }
     }
 
