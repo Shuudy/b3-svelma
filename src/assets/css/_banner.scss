@@ -4,7 +4,7 @@
 
 .banner {
     background:
-    linear-gradient(to top, #000, transparent),
+    linear-gradient(to top, var(--background), transparent),
         var(--banner-image) no-repeat center center/cover;
 
     height: 323px;
