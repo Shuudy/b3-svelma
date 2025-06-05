@@ -115,7 +115,7 @@
 						key={movie.id}
 						id={movie.id}
 						title={movie.title}
-						year={movie.release_date.split('-')[0]}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
 						vote_average={movie.vote_average}
 						poster_path={movie.poster_path}
 					/>
@@ -126,7 +126,7 @@
 						key={movie.id}
 						id={movie.id}
 						title={movie.title}
-						year={movie.release_date.split('-')[0]}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
 						vote_average={movie.vote_average}
 						poster_path={movie.poster_path}
 					/>

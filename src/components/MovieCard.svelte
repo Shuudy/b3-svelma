@@ -1,7 +1,10 @@
 <script>
     let { id, title, year, vote_average, poster_path } = $props();
 
-    let formattedVoteAverage = vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    let formattedVoteAverage =
+        typeof vote_average === "number"
+            ? vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+            : "–";
     
     const defaultMovieCard = '/defaultMovie.png';
 </script>
