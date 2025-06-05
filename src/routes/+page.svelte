@@ -9,99 +9,88 @@
 	import { theme } from '$lib/stores/theme';
 
 	const { data } = $props();
-
 	let movies = $state(data.popularMovies);
-	let filteredMovies = $state(data.popularMovies);
-	let isSearchMode = $state(false);
-	let searchQuery = $state("");
-
-	// Etat pagination
-	let currentPage = $state(data.currentPage || 1);
-	let totalPages = $state(data.totalPages || 1);
+	let filteredMovies = $state(movies);
 
 	let showFilters = $state(false);
 	let selectedGenres = $state([]);
 	let selectedYears = $state([]);
 
 	let searchBarRef;
+	let isSearchMode = $state(false);
+	let serverTotalPages = $state(1);
+	let serverCurrentPage = $state(1);
+
+	// Pagination locale
+	const MOVIES_PER_PAGE = 20;
+	let currentPage = $state(1);
 
 	$effect(() => {
 		document.body.style.overflow = showFilters ? 'hidden' : '';
 	});
 
 	$effect(() => {
-		if (!isSearchMode) {
-			filteredMovies = movies;
-			currentPage = data.currentPage || 1;
-			totalPages = data.totalPages || 1;
+		filteredMovies = movies;
+		currentPage = 1;
+	});
+
+	// ne pas appliquer les filtres côté client en mode recherche
+	$effect(() => {
+		if (isSearchMode) {
+			applyFilters();
 		}
 	});
 
 	function applyFilters() {
-		if (!isSearchMode) {
+		if (isSearchMode) {
+			// En mode recherche, appliquer les filtres côté serveur
+			const filters = {
+				genres: selectedGenres,
+				years: selectedYears
+			};
+			searchBarRef?.searchWithFilters(filters);
+		} else {
+			// En mode films populaires, appliquer les filtres côté client
 			filteredMovies = movies.filter((movie) => {
 				const movieYear = movie.release_date?.split('-')[0];
 
 				const matchesGenres =
 					selectedGenres.length === 0 ||
 					movie.genre_ids.some((genreId) => selectedGenres.includes(genreId));
-				const matchesYear = selectedYears.length === 0 || selectedYears.includes(movieYear);
+				// Convertir l'année du film en nombre pour la comparaison
+				const movieYearNum = movieYear ? parseInt(movieYear) : null;
+				const matchesYear = selectedYears.length === 0 || 
+					(movieYearNum && selectedYears.includes(movieYearNum));
 
 				return matchesYear && matchesGenres;
 			});
+
 			currentPage = 1;
-		}	
+		}
 	}
 
-	// Gérer les résultats de recherche
-	function handleSearchResults(searchData) {
-		const { results, totalPages: searchTotalPages, currentPage: searchCurrentPage, query } = searchData;
-		
-		movies = results;
-		filteredMovies = results;
-		totalPages = searchTotalPages;
-		currentPage = searchCurrentPage;
-		isSearchMode = true;
-		searchQuery = query;
-		
-		// Réinitialiser les filtres en mode recherche
-		selectedGenres = [];
-		selectedYears = [];
-	}
+	// Calcul de la pagination
+	let totalPages = $derived(isSearchMode ? serverTotalPages : Math.ceil(filteredMovies.length / MOVIES_PER_PAGE));
+	let displayCurrentPage = $derived(isSearchMode ? serverCurrentPage : currentPage);
+	let paginatedMovies = $derived(
+		isSearchMode ? movies : filteredMovies.slice(
+			(currentPage - 1) * MOVIES_PER_PAGE,
+			currentPage * MOVIES_PER_PAGE
+		)
+	);
 
-	// Gérer le changement de page
 	function handlePageChange(page) {
 		if (isSearchMode && searchBarRef) {
-			// Pagination côté serveur
+			// Pagination côté serveur pour la recherche
 			searchBarRef.searchPage(page);
 		} else {
-			// Pagination locale pour les films populaires filtrés
+			// Pagination côté client pour les films populaires
 			currentPage = page;
 		}
 	}
 
-	// Calculer de la pagination (mode non-recherche)
-	const MOVIES_PER_PAGE = 20;
-	let paginatedMovies = $derived.by(() => {
-		if (isSearchMode) {
-			return filteredMovies; 
-		} else {
-			// Pagination locale pour les filtres
-			const start = (currentPage - 1) * MOVIES_PER_PAGE;
-			const end = start + MOVIES_PER_PAGE;
-			return filteredMovies.slice(start, end);
-		}
-	});
-
-	$effect(() => {
-		if (!isSearchMode) {
-			totalPages = Math.ceil(filteredMovies.length / MOVIES_PER_PAGE);
-		}
-	});
-
 	// Obtenir le thème actuel
 	let isDark = $derived($theme === 'dark');
-	
 	let logoSrc = $derived(isDark ? '/svelma.svg' : '/svelma_light_mode.svg');
 	let logoAlt = $derived(isDark ? 'Svelma Logo Dark' : 'Svelma Logo Light');
 </script>
@@ -118,7 +107,19 @@
 			<img width="225" height="146" src={logoSrc} alt={logoAlt} />
 		</div>
 		<div class="header__actions">
-			<SearchBar bind:this={searchBarRef} onSearch={handleSearchResults} />
+			<SearchBar
+				bind:this={searchBarRef}
+				on:search={(e) => {
+					movies = e.detail.results;
+					isSearchMode = true;
+					serverTotalPages = e.detail.totalPages;
+					serverCurrentPage = e.detail.currentPage;
+				}}
+				on:reset={() => {
+					movies = data.popularMovies;
+					isSearchMode = false;
+				}}
+			/>
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
 	</header>
@@ -130,7 +131,7 @@
 						key={movie.id}
 						id={movie.id}
 						title={movie.title}
-						year={movie.release_date?.split('-')[0] || 'N/A'}
+						year={movie.release_date.split('-')[0]}
 						vote_average={movie.vote_average}
 						poster_path={movie.poster_path}
 					/>
@@ -139,27 +140,26 @@
 				<p>Aucun film à afficher</p>
 			{/if}
 		</div>		
-		
-		{#if totalPages > 1}
+		{#if filteredMovies.length > 0}
 			<Pagination 
-				currentPage={currentPage} 
-				totalPages={totalPages} 
-				on:pageChange={(e) => handlePageChange(e.detail)} 
+				currentPage={displayCurrentPage} 
+				{totalPages} 
+				on:pageChange={e => handlePageChange(e.detail)} 
 			/>
 		{/if}
 	</main>
 </div>
 
 {#if showFilters}
-	<Mask onClick={() => { showFilters = false; }} />
+	<Mask onClick={() => (showFilters = false)} />
 	<FilterBar
 		genres={data.genres}
-		selectedGenres={selectedGenres}
-		selectedYears={selectedYears}
-		onUpdateGenres={(updatedGenres) => { selectedGenres = updatedGenres; }}
-		onUpdateYears={(updatedYears) => { selectedYears = updatedYears; }}
+		{selectedGenres}
+		{selectedYears}
+		onUpdateGenres={(updatedGenres) => (selectedGenres = updatedGenres)}
+		onUpdateYears={(updatedYears) => (selectedYears = updatedYears)}
 		onApplyFilters={applyFilters}
-		onClose={() => { showFilters = false; }}
+		onClose={() => (showFilters = false)}
 		autoFocus={true}
 	/>
 {/if}

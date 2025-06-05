@@ -43,9 +43,21 @@ async function fetchFromTMDB(endpoint, params = {}) {
     }
 }
 
-// Rechercher des films
-export async function searchMovies(query, page = 1) {
-    return fetchFromTMDB('/search/movie', { query, page });
+// Rechercher des films 
+export async function searchMovies(query, page = 1, filters = {}) {
+  const params = { query, page }
+
+  // Ajouter les filtres 
+  if (filters.genres && filters.genres.length > 0) {
+    params.with_genres = filters.genres.join(",")
+  }
+
+  if (filters.years && filters.years.length > 0) {
+    // première année sélectionnée
+    params.primary_release_year = filters.years[0]
+  }
+
+  return fetchFromTMDB("/search/movie", params)
 }
 
 // Obtenir les details d'un film
