@@ -10,6 +10,7 @@
 
 	const { data } = $props();
 	let movies = $state(data.popularMovies);
+	// svelte-ignore state_referenced_locally
 	let filteredMovies = $state(movies);
 
 	let showFilters = $state(false);
