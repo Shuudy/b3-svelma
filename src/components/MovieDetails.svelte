@@ -26,7 +26,7 @@
 
 <article class="movie-details">
     <div class="movie-details__image">
-        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={`Affiche du film ${original_title}`} />
+        <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultMovieCard} alt={`Affiche du film ${original_title}`} />
     </div>
     <section class="movie-details__infos" aria-labelledby="movie-title">
 

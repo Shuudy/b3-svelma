@@ -11,7 +11,7 @@
 
 <a class="movie-card" href="/films/{id}">
     <div class="movie-card__image">
-        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={`Affiche du film ${title}`} />
+        <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultMovieCard} alt={`Affiche du film ${title}`} />
     </div>
     <div class="movie-card__info">
         <h2 class="movie-card__title">{title}</h2>
