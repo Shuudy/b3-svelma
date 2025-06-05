@@ -1,0 +1,30 @@
+:root {
+  // sombre 
+  --background: #000;
+  --background-card: #111;
+  --background-hover: rgba(255, 255, 255, 0.05);
+  --text: #fff;
+  --text-secondary: #ccc;
+  --border: rgba(203, 213, 225, 0.102);
+  --navbar-bg: rgba(0, 0, 0, 0.7);
+  
+  --transition-duration: 0.3s;
+}
+
+// clair
+html.light {
+  --background: #f8f9fa;
+  --background-card: #fff;
+  --background-hover: rgba(0, 0, 0, 0.05);
+  --text: #333;
+  --text-secondary: #666;
+  --border: rgba(0, 0, 0, 0.1);
+  --navbar-bg: rgba(255, 255, 255, 0.7);
+}
+
+// transitions
+.theme-transition {
+  transition: background-color var(--transition-duration) ease,
+              color var(--transition-duration) ease,
+              border-color var(--transition-duration) ease;
+}

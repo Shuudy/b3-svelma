@@ -1,7 +1,16 @@
+<script>
+	import { theme } from "$lib/stores/theme";
+
+	// Obtenir le thème actuel
+	let isDark = $derived($theme === 'dark');
+	let logoSrc = $derived(isDark ? '/svelma.svg' : '/svelma_light_mode.svg');
+	let logoAlt = $derived(isDark ? 'Svelma Logo Dark' : 'Svelma Logo Light');
+
+</script>
 <header class="logo-header">
 	<div class="logo-header__container">
 		<a href="/" aria-label="Accueil - Svelma">
-			<img src="/svelma.svg" alt="Logo Svelma" />
+			<img src={logoSrc} alt={logoAlt} />
 		</a>
 	</div>
 </header>

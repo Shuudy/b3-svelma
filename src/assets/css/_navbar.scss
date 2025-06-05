@@ -1,10 +1,19 @@
-
 @use 'variables';
+
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    z-index: 10;
     height: variables.$navbar-height;
 
-    background-color: #000;
-    border-bottom: 1px solid rgba(#CBD5E1, 0.102);
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    
+    transition: background-color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
 
     &__content {
         display: flex;
@@ -14,16 +23,45 @@
         max-width: variables.$container-width;
         margin: 0 auto;
 
+        padding: 0 1rem;
+
         height: inherit;
+    }
+
+    &__spacer {
+        height: variables.$navbar-height;
     }
 
     &__actions {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
 
-        & > div {
+        & > div, & > button {
             cursor: pointer;
+        }
+    }
+    
+    &__theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 50%;
+        
+        &:hover {
+            background-color: var(--background-hover);
+        }
+    }
+
+    &__search {
+        display: flex;
+    }
+
+    &__search, &__theme-toggle {
+        &:focus-visible {
+            outline: 1px solid var(--text);
+            outline-offset: 1px;
         }
     }
 }

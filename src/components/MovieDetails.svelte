@@ -50,7 +50,7 @@
         <div class="movie-details__infos-synopsis" aria-labelledby="synopsis-title">
             <h2 id="synopsis-title" class="movie-details__infos-synopsis-title">Synopsis</h2>
             <div class="movie-details__infos-synopsis-text">
-                {overview}
+                {overview && overview.trim() ? overview : "Aucun synopsis disponible pour ce film."}
             </div>
         </div>
     </section>

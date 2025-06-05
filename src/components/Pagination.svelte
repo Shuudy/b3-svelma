@@ -1,8 +1,7 @@
 <script>
 	import { createEventDispatcher } from "svelte";
 
-    export let currentPage = 1;
-    export let totalPages = 1;
+    let { currentPage = 1, totalPages = 1 } = $props();
     const dispatch = createEventDispatcher();
 
     function goToPage(page) {
@@ -16,7 +15,7 @@
     <button
         class="page-arrow"
         disabled={currentPage === 1}
-        on:click={() => goToPage(currentPage - 1)}
+        onclick={() => goToPage(currentPage - 1)}
         aria-label="Page précédente"
     >
         &lt;
@@ -27,7 +26,7 @@
     <button
         class="page-arrow"
         disabled={currentPage === totalPages}
-        on:click={() => goToPage(currentPage + 1)}
+        onclick={() => goToPage(currentPage + 1)}
         aria-label="Page suivante"
     >
         &gt;
@@ -40,7 +39,7 @@
     }
 
     button:focus-visible {
-        outline: 1px solid #fff;
+        outline: 1px solid var(--text);
         outline-offset: 1px;
     }
 </style>

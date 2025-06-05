@@ -5,6 +5,8 @@
 	import Pagination from '../components/Pagination.svelte';
 	import FilterBar from '../components/FilterBar.svelte';
 	import Mask from '../components/Mask.svelte';
+	import Navbar from '../components/Navbar.svelte';
+	import { theme } from '$lib/stores/theme';
 
 	const { data } = $props();
 	let movies = $state(data.popularMovies);
@@ -57,6 +59,10 @@
 		currentPage = page;
 	}
 
+	// Obtenir le thème actuel
+	let isDark = $derived($theme === 'dark');
+	let logoSrc = $derived(isDark ? '/svelma.svg' : '/svelma_light_mode.svg');
+	let logoAlt = $derived(isDark ? 'Svelma Logo Dark' : 'Svelma Logo Light');
 </script>
 
 <svelte:head>
@@ -64,13 +70,17 @@
 	<meta name="description" content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma." />
 </svelte:head>
 
+<Navbar/>
 <div class="container">
 	<header class="header">
 		<div class="header__logo">
-			<img src="/svelma.svg" alt="Svelma Logo" />
+			<img width="225" height="146" src={logoSrc} alt={logoAlt} />
 		</div>
 		<div class="header__actions">
-			<SearchBar on:search={(e) => (movies = e.detail.results)} />
+			<SearchBar
+				on:search={(e) => (movies = e.detail.results)}
+				on:reset={() => (movies = data.popularMovies)}
+			/>
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
 	</header>

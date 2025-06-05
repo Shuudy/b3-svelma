@@ -2,6 +2,7 @@
     import MovieDetails from "../../../components/MovieDetails.svelte";
     import ActorCard from "../../../components/ActorCard.svelte";
 	import Pagination from "../../../components/Pagination.svelte";
+	import Navbar from "../../../components/Navbar.svelte";
 
     const { data } = $props();
     const { movie, actors} = data;
@@ -33,12 +34,13 @@
 </svelte:head>
 
 {#if movie}
+    <Navbar />
     <header
         class="banner"
         role="img"
         aria-label={`Bannière avec l'affiche du film ${movie.original_title}`}
-        style={`--banner-image: url('${movie.poster_path
-        ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+        style={`--banner-image: url('${movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
         : '/defaultMovie.png'}')`}
     ></header>
 
