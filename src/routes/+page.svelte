@@ -17,9 +17,7 @@
 	let selectedYears = $state([]);
 
 	// Pagination locale
-	const MOVIES_PER_ROW = 5;
-	const ROWS_PER_PAGE = 2;
-	const MOVIES_PER_PAGE = MOVIES_PER_ROW * ROWS_PER_PAGE;
+	const MOVIES_PER_PAGE = 20;
 	let currentPage = $state(1);
 	let searchTotalPages = $state(1);
 	let isSearchActive = $state(false);
@@ -135,7 +133,7 @@
 				{/each}
 			{/if}
 		</div>
-		{#if (isSearchActive && movies.length > 0) || (!isSearchActive && paginatedMovies.length > 0)}
+		{#if (isSearchActive && movies.length > 0 && totalPages > 1)}
 			<Pagination {currentPage} {totalPages} on:pageChange={(e) => handlePageChange(e.detail)} />
 		{/if}
 	</main>
