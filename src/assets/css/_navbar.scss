@@ -57,4 +57,11 @@
     &__search {
         display: flex;
     }
+
+    &__search, &__theme-toggle {
+        &:focus-visible {
+            outline: 1px solid var(--text);
+            outline-offset: 1px;
+        }
+    }
 }
