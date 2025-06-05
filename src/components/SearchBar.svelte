@@ -6,18 +6,22 @@
     const dispatch = createEventDispatcher();
 
     // Effectuer la recherche
-    async function handleSearch() {
+    async function handleSearch(page = 1) {
         if (query.trim()) {
             try {
                 // Appel à l'API TMDB pour rechercher des films
-                const response = await searchMovies(query);
-                dispatch("search", { results: response.results });
+                const response = await searchMovies(query, page);
+                dispatch("search", { results: response.results, total_pages: response.total_pages, page });
             } catch (error) {
                 console.error("Erreur lors de la recherche :", error);
             }
         } else {
             dispatch("reset");
         }
+    }
+
+    export function searchAtPage(page) {
+        handleSearch(page);
     }
 
 </script>
