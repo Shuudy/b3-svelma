@@ -133,7 +133,7 @@
 				{/each}
 			{/if}
 		</div>
-		{#if (isSearchActive && movies.length > 0 && totalPages > 1)}
+		{#if isSearchActive && movies.length > 0 && totalPages > 1}
 			<Pagination {currentPage} {totalPages} on:pageChange={(e) => handlePageChange(e.detail)} />
 		{/if}
 	</main>
