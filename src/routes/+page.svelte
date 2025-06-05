@@ -33,7 +33,7 @@
 
 	function applyFilters() {
 		filteredMovies = movies.filter((movie) => {
-			const movieYear = movie.release_date?.split('-')[0];
+			const movieYear = parseInt(movie.release_date?.split('-')[0]);
 
 			const matchesGenres =
 				selectedGenres.length === 0 ||
