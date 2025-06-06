@@ -1,9 +1,20 @@
 <script>
 	import { searchMovies } from "$lib/api/tmdb";
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onDestroy } from "svelte";
+    import { shouldFocusSearch } from "$lib/stores/focusSearch";
 
     let query = $state("");
+    let inputRef;
     const dispatch = createEventDispatcher();
+
+    const unsubscribe = shouldFocusSearch.subscribe((val) => {
+		if (val && inputRef) {
+			inputRef.focus();
+			shouldFocusSearch.set(false);
+		}
+	});
+
+	onDestroy(unsubscribe);
 
     // Effectuer la recherche
     async function handleSearch(page = 1) {
@@ -28,6 +39,7 @@
 
 <form class="searchbar" role="search" aria-label="Recherche de films">
     <input 
+        bind:this={inputRef}
         type="text" 
         placeholder="Rechercher un film ..." 
         aria-label="Champ de recherche pour les films"

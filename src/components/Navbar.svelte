@@ -1,7 +1,11 @@
 <script>
   import { theme } from '$lib/stores/theme';
-  import { onMount } from 'svelte';
-  
+  import { onMount, tick } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { shouldFocusSearch } from '$lib/stores/focusSearch';
+  import { get } from 'svelte/store';
+  import { page } from '$app/stores';
+
   // Initialiser le thème
   onMount(() => {
     theme.init();
@@ -17,6 +21,18 @@
 
   let logoSrc = $derived(isDark ? '/svelma.svg' : '/svelma_light_mode.svg');
   let logoAlt = $derived(isDark ? 'Svelma Logo Dark' : 'Svelma Logo Light');
+
+  async function handleSearchIconClick() {
+		const currentPath = get(page).url.pathname;
+
+		if (currentPath === '/') {
+			shouldFocusSearch.set(true);
+		} else {
+      await goto('/');
+      await tick();
+			shouldFocusSearch.set(true);			
+		}
+	}
 </script>
 
 <nav class="navbar" aria-label="Navigation principale">
@@ -28,7 +44,7 @@
     </div>
 
     <div class="navbar__actions">
-      <button type="button" class="navbar__search" aria-label="Rechercher un film">
+      <button type="button" class="navbar__search" aria-label="Rechercher un film" onclick={handleSearchIconClick}>
         <svg
           width="20"
           height="20"
