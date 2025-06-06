@@ -42,9 +42,7 @@
 			selectedGenres = selectedGenres.filter((id) => id !== genreId);
 		} else {
 			selectedGenres = [...selectedGenres, genreId];
-		}
-
-		onUpdateGenres(selectedGenres);
+		}		
 	}
 
 	function toggleYear(year) {
@@ -53,11 +51,11 @@
 		} else {
 			selectedYears = [...selectedYears, year];
 		}
-
-		onUpdateYears(selectedYears);
 	}
 
 	function applyFilters() {
+		onUpdateGenres(selectedGenres);
+		onUpdateYears(selectedYears);
 		onApplyFilters();
 		onClose();
 	}
