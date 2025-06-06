@@ -49,7 +49,7 @@
 		<div class="actor-details__left">
 			<div class="actor-details__image">
 				<img
-					src={person.profile_path ? `https://image.tmdb.org/t/p/w500/${person.profile_path}` : '/default-profile.svg'}
+					src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : '/default-profile.svg'}
 					alt={person.name}
 				/>
 			</div>

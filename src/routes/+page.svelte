@@ -10,6 +10,7 @@
 
 	const { data } = $props();
 	let movies = $state(data.popularMovies);
+	// svelte-ignore state_referenced_locally
 	let filteredMovies = $state(movies);
 
 	let showFilters = $state(false);
@@ -24,14 +25,20 @@
 	// Pagination locale
 	const MOVIES_PER_PAGE = 20;
 	let currentPage = $state(1);
+	let searchTotalPages = $state(1);
+	let isSearchActive = $state(false);
+
+	let searchBarRef;
 
 	$effect(() => {
 		document.body.style.overflow = showFilters ? 'hidden' : '';
 	});
 
 	$effect(() => {
-		filteredMovies = movies;
-		currentPage = 1;
+		if (!isSearchActive) {
+			filteredMovies = movies;
+			currentPage = 1;
+		}
 	});
 
 	// ne pas appliquer les filtres côté client en mode recherche
@@ -53,7 +60,6 @@
 			// En mode films populaires, appliquer les filtres côté client
 			filteredMovies = movies.filter((movie) => {
 				const movieYear = movie.release_date?.split('-')[0];
-
 				const matchesGenres =
 					selectedGenres.length === 0 ||
 					movie.genre_ids.some((genreId) => selectedGenres.includes(genreId));
@@ -70,6 +76,7 @@
 	}
 
 	// Calcul de la pagination
+
 	let totalPages = $derived(isSearchMode ? serverTotalPages : Math.ceil(filteredMovies.length / MOVIES_PER_PAGE));
 	let displayCurrentPage = $derived(isSearchMode ? serverCurrentPage : currentPage);
 	let paginatedMovies = $derived(
@@ -96,11 +103,14 @@
 </script>
 
 <svelte:head>
-    <title>Svelma</title>
-	<meta name="description" content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma." />
+	<title>Svelma</title>
+	<meta
+		name="description"
+		content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma."
+	/>
 </svelte:head>
 
-<Navbar/>
+<Navbar />
 <div class="container">
 	<header class="header">
 		<div class="header__logo">
@@ -125,19 +135,30 @@
 	</header>
 	<main class="movie-list-container" aria-label="Liste des films populaires">
 		<div class="movie-list">
-			{#if paginatedMovies.length > 0}
-				{#each paginatedMovies as movie}
+			{#if (isSearchActive && movies.length === 0) || (!isSearchActive && paginatedMovies.length === 0)}
+				<p>Aucun film à afficher</p>
+			{:else if isSearchActive}
+				{#each movies as movie}
 					<MovieCard
 						key={movie.id}
 						id={movie.id}
 						title={movie.title}
-						year={movie.release_date.split('-')[0]}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
 						vote_average={movie.vote_average}
 						poster_path={movie.poster_path}
 					/>
 				{/each}
 			{:else}
-				<p>Aucun film à afficher</p>
+				{#each paginatedMovies as movie}
+					<MovieCard
+						key={movie.id}
+						id={movie.id}
+						title={movie.title}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
+						vote_average={movie.vote_average}
+						poster_path={movie.poster_path}
+					/>
+				{/each}
 			{/if}
 		</div>		
 		{#if filteredMovies.length > 0}
