@@ -49,7 +49,7 @@
         onkeydown={(e) => e.key === "Enter" && handleSearch()}
     />
     
-    <button type="button" aria-label="Lancer la recherche" onclick={handleSearch}>
+    <button type="button" aria-label="Lancer la recherche" onclick={() => handleSearch()}>
          <svg 
             width="20" 
             height="20" 
