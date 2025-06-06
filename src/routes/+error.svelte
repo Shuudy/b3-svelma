@@ -1,7 +1,8 @@
 <script>
 	import { page } from '$app/stores';
+	import Navbar from '../components/Navbar.svelte';
 </script>
-
+<Navbar />
 <div class="error">
 	<div class="error__content">
 		<div class="error__status">{$page.status}</div>
@@ -22,7 +23,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100dvh;
+		height: calc(100dvh - 64px);
 	}
 
 	.error__content {

@@ -1,14 +1,17 @@
 <script>
     let { id, title, year, vote_average, poster_path } = $props();
 
-    let formattedVoteAverage = vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    let formattedVoteAverage =
+        typeof vote_average === "number"
+            ? vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+            : "–";
     
     const defaultMovieCard = '/defaultMovie.png';
 </script>
 
 <a class="movie-card" href="/films/{id}">
     <div class="movie-card__image">
-        <img src={poster_path ? `https://image.tmdb.org/t/p/original/${poster_path}` : defaultMovieCard} alt={`Affiche du film ${title}`} />
+        <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultMovieCard} alt={`Affiche du film ${title}`} />
     </div>
     <div class="movie-card__info">
         <h2 class="movie-card__title">{title}</h2>

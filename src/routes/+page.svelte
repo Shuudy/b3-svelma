@@ -10,6 +10,7 @@
 
 	const { data } = $props();
 	let movies = $state(data.popularMovies);
+	// svelte-ignore state_referenced_locally
 	let filteredMovies = $state(movies);
 
 	let showFilters = $state(false);
@@ -17,23 +18,27 @@
 	let selectedYears = $state([]);
 
 	// Pagination locale
-	const MOVIES_PER_ROW = 5;
-	const ROWS_PER_PAGE = 2;
-	const MOVIES_PER_PAGE = MOVIES_PER_ROW * ROWS_PER_PAGE;
+	const MOVIES_PER_PAGE = 20;
 	let currentPage = $state(1);
+	let searchTotalPages = $state(1);
+	let isSearchActive = $state(false);
+
+	let searchBarRef;
 
 	$effect(() => {
 		document.body.style.overflow = showFilters ? 'hidden' : '';
 	});
 
 	$effect(() => {
-		filteredMovies = movies;
-		currentPage = 1;
+		if (!isSearchActive) {
+			filteredMovies = movies;
+			currentPage = 1;
+		}
 	});
 
 	function applyFilters() {
 		filteredMovies = movies.filter((movie) => {
-			const movieYear = movie.release_date?.split('-')[0];
+			const movieYear = parseInt(movie.release_date?.split('-')[0]);
 
 			const matchesGenres =
 				selectedGenres.length === 0 ||
@@ -47,16 +52,20 @@
 	}
 
 	// Calcul de la pagination
-	let totalPages = $derived(Math.ceil(filteredMovies.length / MOVIES_PER_PAGE));
+	let totalPages = $derived(
+		isSearchActive ? searchTotalPages : Math.ceil(filteredMovies.length / MOVIES_PER_PAGE)
+	);
+
 	let paginatedMovies = $derived(
-		filteredMovies.slice(
-			(currentPage - 1) * MOVIES_PER_PAGE,
-			currentPage * MOVIES_PER_PAGE
-		)
+		filteredMovies.slice((currentPage - 1) * MOVIES_PER_PAGE, currentPage * MOVIES_PER_PAGE)
 	);
 
 	function handlePageChange(page) {
-		currentPage = page;
+		if (isSearchActive) {
+			searchBarRef.searchAtPage(page);
+		} else {
+			currentPage = page;
+		}
 	}
 
 	// Obtenir le thème actuel
@@ -66,11 +75,14 @@
 </script>
 
 <svelte:head>
-    <title>Svelma</title>
-	<meta name="description" content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma." />
+	<title>Svelma</title>
+	<meta
+		name="description"
+		content="Découvrez les films populaires, filtrez par genre ou année et explorez les détails des films et acteurs sur Svelma."
+	/>
 </svelte:head>
 
-<Navbar/>
+<Navbar />
 <div class="container">
 	<header class="header">
 		<div class="header__logo">
@@ -78,31 +90,52 @@
 		</div>
 		<div class="header__actions">
 			<SearchBar
-				on:search={(e) => (movies = e.detail.results)}
-				on:reset={() => (movies = data.popularMovies)}
+				bind:this={searchBarRef}
+				on:search={(e) => {
+					movies = e.detail.results;
+					searchTotalPages = e.detail.total_pages;
+					currentPage = e.detail.page;
+					isSearchActive = true;
+				}}
+				on:reset={() => {
+					movies = data.popularMovies;
+					isSearchActive = false;
+					currentPage = 1;
+				}}
 			/>
 			<Filter onToggleFilters={() => (showFilters = true)} />
 		</div>
 	</header>
 	<main class="movie-list-container" aria-label="Liste des films populaires">
 		<div class="movie-list">
-			{#if paginatedMovies.length > 0}
-				{#each paginatedMovies as movie}
+			{#if (isSearchActive && movies.length === 0) || (!isSearchActive && paginatedMovies.length === 0)}
+				<p>Aucun film à afficher</p>
+			{:else if isSearchActive}
+				{#each movies as movie}
 					<MovieCard
 						key={movie.id}
 						id={movie.id}
 						title={movie.title}
-						year={movie.release_date.split('-')[0]}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
 						vote_average={movie.vote_average}
 						poster_path={movie.poster_path}
 					/>
 				{/each}
 			{:else}
-				<p>Aucun film à afficher</p>
+				{#each paginatedMovies as movie}
+					<MovieCard
+						key={movie.id}
+						id={movie.id}
+						title={movie.title}
+						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
+						vote_average={movie.vote_average}
+						poster_path={movie.poster_path}
+					/>
+				{/each}
 			{/if}
-		</div>		
-		{#if filteredMovies.length > 0}
-			<Pagination {currentPage} {totalPages} on:pageChange={e => handlePageChange(e.detail)} />
+		</div>
+		{#if isSearchActive && movies.length > 0 && totalPages > 1}
+			<Pagination {currentPage} {totalPages} on:pageChange={(e) => handlePageChange(e.detail)} />
 		{/if}
 	</main>
 </div>
