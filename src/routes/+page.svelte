@@ -29,26 +29,21 @@
 		document.body.style.overflow = showFilters ? 'hidden' : '';
 	});
 
-	$effect(() => {
-		if (!isSearchActive) {
-			filteredMovies = movies;
-			currentPage = 1;
-		}
-	});
-
 	function applyFilters() {
-		filteredMovies = movies.filter((movie) => {
-			const movieYear = parseInt(movie.release_date?.split('-')[0]);
+		const source = isSearchActive ? movies : data.popularMovies;
 
+		filteredMovies = source.filter((movie) => {
+			const movieYear = parseInt(movie.release_date?.split('-')[0]);
 			const matchesGenres =
 				selectedGenres.length === 0 ||
 				movie.genre_ids.some((genreId) => selectedGenres.includes(genreId));
 			const matchesYear = selectedYears.length === 0 || selectedYears.includes(movieYear);
-
 			return matchesYear && matchesGenres;
 		});
 
-		currentPage = 1;
+		if (!isSearchActive) {
+			currentPage = 1;
+		}
 	}
 
 	// Calcul de la pagination
@@ -57,7 +52,9 @@
 	);
 
 	let paginatedMovies = $derived(
-		filteredMovies.slice((currentPage - 1) * MOVIES_PER_PAGE, currentPage * MOVIES_PER_PAGE)
+		isSearchActive
+			? filteredMovies
+			: filteredMovies.slice((currentPage - 1) * MOVIES_PER_PAGE, currentPage * MOVIES_PER_PAGE)
 	);
 
 	function handlePageChange(page) {
@@ -96,11 +93,13 @@
 					searchTotalPages = e.detail.total_pages;
 					currentPage = e.detail.page;
 					isSearchActive = true;
+					applyFilters();
 				}}
 				on:reset={() => {
 					movies = data.popularMovies;
 					isSearchActive = false;
 					currentPage = 1;
+					applyFilters();
 				}}
 			/>
 			<Filter onToggleFilters={() => (showFilters = true)} />
@@ -108,19 +107,8 @@
 	</header>
 	<main class="movie-list-container" aria-label="Liste des films populaires">
 		<div class="movie-list">
-			{#if (isSearchActive && movies.length === 0) || (!isSearchActive && paginatedMovies.length === 0)}
+			{#if (isSearchActive && filteredMovies.length === 0) || (!isSearchActive && paginatedMovies.length === 0)}
 				<p>Aucun film à afficher</p>
-			{:else if isSearchActive}
-				{#each movies as movie}
-					<MovieCard
-						key={movie.id}
-						id={movie.id}
-						title={movie.title}
-						year={movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
-						vote_average={movie.vote_average}
-						poster_path={movie.poster_path}
-					/>
-				{/each}
 			{:else}
 				{#each paginatedMovies as movie}
 					<MovieCard
@@ -134,7 +122,7 @@
 				{/each}
 			{/if}
 		</div>
-		{#if isSearchActive && movies.length > 0 && totalPages > 1}
+		{#if (isSearchActive && movies.length > 0 && totalPages > 1) || (!isSearchActive && filteredMovies.length > MOVIES_PER_PAGE)}
 			<Pagination {currentPage} {totalPages} on:pageChange={(e) => handlePageChange(e.detail)} />
 		{/if}
 	</main>
