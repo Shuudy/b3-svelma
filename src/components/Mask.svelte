@@ -1,4 +1,5 @@
 <script>
+	import '../assets/css/_mask.scss';
 	const { onClick } = $props();
 </script>
 

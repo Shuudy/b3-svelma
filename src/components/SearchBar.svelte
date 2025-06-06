@@ -1,4 +1,5 @@
 <script>
+    import '../assets/css/_searchbar.scss';
 	import { searchMovies } from "$lib/api/tmdb";
     import { createEventDispatcher, onDestroy } from "svelte";
     import { shouldFocusSearch } from "$lib/stores/focusSearch";
@@ -49,7 +50,7 @@
         onkeydown={(e) => e.key === "Enter" && handleSearch()}
     />
     
-    <button type="button" aria-label="Lancer la recherche" onclick={handleSearch}>
+    <button type="button" aria-label="Lancer la recherche" onclick={() => handleSearch()}>
          <svg 
             width="20" 
             height="20" 

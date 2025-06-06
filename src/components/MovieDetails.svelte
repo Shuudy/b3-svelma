@@ -1,4 +1,5 @@
 <script>
+    import "../assets/css/_movie-details.scss";
     let { original_title, genres, vote_average, vote_count, poster_path, release_date, runtime, overview } = $props();
 
     let formattedVoteAverage = vote_average.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });

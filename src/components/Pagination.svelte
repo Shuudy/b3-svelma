@@ -1,4 +1,5 @@
 <script>
+    import "../assets/css/_pagination.scss";
 	import { createEventDispatcher } from "svelte";
 
     let { currentPage = 1, totalPages = 1 } = $props();

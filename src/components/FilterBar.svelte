@@ -1,4 +1,5 @@
 <script>
+	import '../assets/css/_filterbar.scss';
 	import { onMount } from "svelte";
 
 	const currentYear = new Date().getFullYear();

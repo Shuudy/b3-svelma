@@ -1,4 +1,5 @@
 <script>
+  import '../assets/css/_navbar.scss';
   import { theme } from '$lib/stores/theme';
   import { onMount, tick } from 'svelte';
   import { goto } from '$app/navigation';
