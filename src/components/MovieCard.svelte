@@ -1,4 +1,5 @@
 <script>
+    import "../assets/css/_movie-card.scss";
     let { id, title, year, vote_average, poster_path } = $props();
 
     let formattedVoteAverage =

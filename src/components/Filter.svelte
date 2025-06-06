@@ -1,4 +1,5 @@
 <script>
+    import '../assets/css/_filter.scss';
     const { onToggleFilters } = $props();
 </script>
 

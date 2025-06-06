@@ -1,4 +1,5 @@
 <script>
+	import '../../../assets/css/_actor.scss';
 	import LogoHeader from '../../../components/LogoHeader.svelte';
     import MovieCard from '../../../components/MovieCard.svelte';
 	import Pagination from '../../../components/Pagination.svelte';

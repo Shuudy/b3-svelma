@@ -1,4 +1,5 @@
 <script>
+    import '../assets/css/_searchbar.scss';
 	import { searchMovies } from "$lib/api/tmdb";
     import { createEventDispatcher, onDestroy } from "svelte";
     import { shouldFocusSearch } from "$lib/stores/focusSearch";
